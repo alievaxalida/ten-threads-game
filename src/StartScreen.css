@@ -14,7 +14,6 @@
   align-items: center;
 }
 
-/* Bura arxa plan şəklinin kodları əlavə olundu ki, şəkil tam görünsün */
 .evidence-container {
   position: absolute;
   inset: 0;
@@ -42,7 +41,6 @@
   box-sizing: border-box;
 }
 
-/* Şəklin üzərinə tündlük verən təbəqə */
 .evidence-container::before {
   content: '';
   position: absolute;
@@ -51,7 +49,6 @@
   z-index: 1;
 }
 
-/* .seal-button-area silindi, çünki artıq o düymə yoxdur */
 .game-title-v2, .name-area-wrapper {
   position: relative;
   z-index: 10;
@@ -72,7 +69,6 @@
   opacity: 0.8;
 }
 
-/* Ad yazılan yerin dizaynı */
 .name-area-wrapper {
   position: relative;
   width: 100%;
@@ -81,32 +77,38 @@
   text-align: center;
 }
 
+/* YAZI SAHƏSİNİN DÜZƏLİŞİ */
 .input-group {
   display: flex;
+  justify-content: center; /* Hər şeyi mərkəzə çəkir */
   align-items: center;
   border-bottom: 2px dashed rgba(255,255,255,0.3); 
   position: relative;
   padding-bottom: 5px;
+  width: 100%;
 }
 
 .name-input-v2 {
-  flex: 1;
+  width: 100%;
   background: transparent;
   border: none;
   font-family: 'Special Elite', cursive;
-  font-size: 20px;
+  font-size: 24px; /* Yazını bir az da böyütdük */
   padding: 10px 0;
   outline: none;
   color: #fff;
+  text-align: center; /* ADI TAM MƏRKƏZƏ GƏTİRİR */
   transition: opacity 0.3s;
 }
 
 .name-input-v2.confirmed-text {
-  opacity: 0.6; 
+  opacity: 0.4; /* Möhür vurulandan sonra yazı daha çox solsun ki, möhür partlasın */
 }
 
-/* ✓ Düyməsi */
+/* ✓ Düyməsi sağ kənarda duracaq ki, yazını mərkəzdən qaçırmasın */
 .confirm-btn.active {
+  position: absolute;
+  right: 5px; 
   background: #8b0000;
   color: white;
   border: none;
@@ -115,7 +117,6 @@
   height: 35px;
   cursor: pointer;
   font-weight: bold;
-  margin-left: 10px;
   transition: transform 0.2s, background-color 0.2s;
   font-size: 18px;
 }
@@ -125,31 +126,31 @@
   background-color: #a61c1c;
 }
 
-/* ADIN ÜZƏRİNƏ DÜŞƏN MÖHÜR ANİMASİYASI (BAM!) */
+/* MÖHÜR DÜZƏLİŞİ: BÖYÜDÜLDÜ VƏ MƏRKƏZLƏNDİ */
 .name-stamp-overlay {
   position: absolute;
-  top: -15px; 
-  left: 20%;
-  width: 110px; 
+  top: -40px; 
+  left: 50%; /* Tam mərkəz */
+  margin-left: -85px; /* Genişliyin yarısı qədər sola çəkirik ki, tam mərkəzə düşsün */
+  width: 170px; /* MÖHÜRÜ XEYLİ BÖYÜTDÜK */
   height: auto;
   opacity: 0;
-  animation: stampFall 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  animation: stampFall 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
   pointer-events: none;
   z-index: 5;
 }
 
 
-/* Möhürü qırmızı etmək üçün filtr */
 .red-filter {
   filter: sepia(100%) hue-rotate(-50deg) saturate(300%) contrast(150%);
 }
 
 @keyframes stampFall {
-  0% { transform: scale(5) rotate(-45deg); opacity: 0; }
-  100% { transform: scale(1) rotate(-15deg); opacity: 0.8; }
+  0% { transform: scale(4) rotate(-30deg); opacity: 0; }
+  100% { transform: scale(1) rotate(-15deg); opacity: 0.9; }
 }
 
-/* Arxa plan dumanını bir az daha tündləşdiririk */
+
 .detective-smoke-bg {
   background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
   opacity: 0.9;

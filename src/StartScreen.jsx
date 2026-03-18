@@ -7,16 +7,14 @@ export default function StartScreen({ onStartGame }) {
   const [detectiveName, setDetectiveName] = useState('');
   const [isConfirmed, setIsConfirmed] = useState(false);
 
-  // Adı təsdiqləyən və oyunu başladan funksiya
   const confirmAndStartGame = () => {
     if (detectiveName.trim().length > 2) {
-      // 1. Adı təsdiqlə (bu, möhür animasiyasını başladır)
       setIsConfirmed(true);
 
-      // 2. Animasiya bitdikdən (məs: 800ms) sonra oyunu başlat
+      // BURA DƏYİŞDİ: Tam olaraq 2.5 saniyə (2500ms) gözləyir
       setTimeout(() => {
         onStartGame(detectiveName);
-      }, 800); // 0.8 saniyəlik gecikmə
+      }, 2500); 
     } else {
       alert("Zəhmət olmasa adınızı daxil edin (min. 3 hərf)");
     }
@@ -24,18 +22,12 @@ export default function StartScreen({ onStartGame }) {
 
   return (
     <div className="start-wrapper">
-      {/* Qaranlıq Dumanlı Atmosfer Arxa Planı */}
       <div className="detective-smoke-bg"></div>
-
-      {/* SÜBUTLAR KONTEYNERİ */}
       <div className="evidence-container" style={{ backgroundImage: `url(${evidenceBg})` }}>
-        {/* MƏRKƏZİ KOMPOZİSİYA QABIĞI (Elementləri vahid qruplaşdırır) */}
         <div className="central-ui-wrapper">
-          {/* Başlıq (Daktilo şrifti - tünd rəng) */}
           <h1 className="game-title-v2">TEN THREADS</h1>
           <p className="game-subtitle">WHO IS THE KILLER?</p>
 
-          {/* Ad yazılan sahə (✓ düyməsi ilə birlikdə) */}
           <div className="name-area-wrapper">
             <div className="input-group">
               <input 
@@ -48,13 +40,11 @@ export default function StartScreen({ onStartGame }) {
                 maxLength={20}
               />
               
-              {/* Təsdiq Düyməsi (Checkmark) - Artıq bu düymə oyunu başladır (rəngli) */}
               {!isConfirmed && (
                 <button className="confirm-btn active" onClick={confirmAndStartGame}>✓</button>
               )}
             </div>
 
-            {/* Animasiyalı Möhür (Adın üzərinə düşən - Sənin möhürünün kiçik, qırmızı variantı) */}
             {isConfirmed && (
               <img 
                 src={mySealImg} 
@@ -64,8 +54,6 @@ export default function StartScreen({ onStartGame }) {
             )}
           </div>
         </div>
-
-        {/* BURA DİQQƏT: Alt hissədəki .seal-button-area blokunu tamamilə sildik! */}
       </div>
     </div>
   );
