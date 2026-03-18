@@ -138,7 +138,7 @@
   z-index: 5;
 }
 
-/* XƏTA DÜZƏLDİLDİ: Ulduzun əvvəlinə / işarəsi qoyuldu */
+
 /* Möhürü qırmızı etmək üçün filtr */
 .red-filter {
   filter: sepia(100%) hue-rotate(-50deg) saturate(300%) contrast(150%);
