@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
 
 .start-wrapper {
-  position: fixed; /* Ekranın hər yerinə yapışdırır */
+  position: fixed; 
   top: 0;
   left: 0;
   width: 100vw;
@@ -14,17 +14,32 @@
   align-items: center;
 }
 
+/* Bura arxa plan şəklinin kodları əlavə olundu ki, şəkil tam görünsün */
 .evidence-container {
   position: absolute;
-  inset: 0; /* Bütün kənarlara 0 məsafə */
+  inset: 0;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   display: flex;
   flex-direction: column;
-  justify-content: space-around; /* Elementləri yuxarıdan aşağı səpələyir */
-  align-items: center;
-  padding: 40px 20px;
+  justify-content: center; 
+  align-items: center; 
+  overflow: hidden;
+}
+
+.central-ui-wrapper {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px); 
+  padding: 40px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  z-index: 10;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+  box-sizing: border-box;
 }
 
 /* Şəklin üzərinə tündlük verən təbəqə */
@@ -36,34 +51,41 @@
   z-index: 1;
 }
 
-/* Başlıq və digər elementləri ön plana çıxar */
-.game-title-v2, .name-area-wrapper, .seal-button-area {
+/* .seal-button-area silindi, çünki artıq o düymə yoxdur */
+.game-title-v2, .name-area-wrapper {
   position: relative;
   z-index: 10;
 }
 
 .game-title-v2 {
+  color: #fff; 
+  font-size: 56px;
+  text-shadow: 2px 5px 10px rgba(0,0,0,0.8);
+  margin-bottom: 0;
+  line-height: 1;
+}
+
+.game-subtitle {
   color: #fff;
-  font-size: 50px;
-  text-align: center;
-  text-shadow: 0 0 20px rgba(0,0,0,0.9);
-  margin-top: 20px;
+  font-size: 16px;
+  margin: 5px 0 30px 0;
+  opacity: 0.8;
 }
 
 /* Ad yazılan yerin dizaynı */
 .name-area-wrapper {
   position: relative;
   width: 100%;
-  max-width: 300px;
-  margin: 60px auto;
+  max-width: 320px;
+  margin: 20px auto;
   text-align: center;
 }
 
 .input-group {
   display: flex;
   align-items: center;
-  border-bottom: 2px dashed #444;
-  position: relative; /* Balaca möhür bunun üzərinə gələcək */
+  border-bottom: 2px dashed rgba(255,255,255,0.3); 
+  position: relative;
   padding-bottom: 5px;
 }
 
@@ -79,20 +101,26 @@
   transition: opacity 0.3s;
 }
 
-.confirm-btn {
+.name-input-v2.confirmed-text {
+  opacity: 0.6; 
+}
+
+/* ✓ Düyməsi */
+.confirm-btn.active {
   background: #8b0000;
   color: white;
   border: none;
   border-radius: 4px;
-  width: 30px;
-  height: 30px;
+  width: 35px;
+  height: 35px;
   cursor: pointer;
   font-weight: bold;
   margin-left: 10px;
   transition: transform 0.2s, background-color 0.2s;
+  font-size: 18px;
 }
 
-.confirm-btn:hover {
+.confirm-btn.active:hover {
   transform: scale(1.1);
   background-color: #a61c1c;
 }
@@ -100,9 +128,9 @@
 /* ADIN ÜZƏRİNƏ DÜŞƏN MÖHÜR ANİMASİYASI (BAM!) */
 .name-stamp-overlay {
   position: absolute;
-  top: -15px; /* Adın üzərinə gəlməsi üçün */
+  top: -15px; 
   left: 20%;
-  width: 100px; /* Möhürün ölçüsü */
+  width: 110px; 
   height: auto;
   opacity: 0;
   animation: stampFall 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
@@ -110,6 +138,7 @@
   z-index: 5;
 }
 
+/* XƏTA DÜZƏLDİLDİ: Ulduzun əvvəlinə / işarəsi qoyuldu */
 /* Möhürü qırmızı etmək üçün filtr */
 .red-filter {
   filter: sepia(100%) hue-rotate(-50deg) saturate(300%) contrast(150%);
@@ -120,7 +149,9 @@
   100% { transform: scale(1) rotate(-15deg); opacity: 0.8; }
 }
 
-.name-input-v2.confirmed-text {
-  opacity: 0.6; /* Möhür vurulandan sonra yazı bir az solsun */
+/* Arxa plan dumanını bir az daha tündləşdiririk */
+.detective-smoke-bg {
+  background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
+  opacity: 0.9;
 }
 
