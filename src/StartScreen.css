@@ -1,8 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
-/* Qan axan şrift üçün yeni import */
-@import url('https://fonts.googleapis.com/css2?family=Nosifer&display=swap');
+/* Daha ciddi və gərgin bir qorxu şrifti */
+@import url('https://fonts.googleapis.com/css2?family=Creepster&display=swap');
 
-/* Əsas ekran və sürüşmənin qarşısını alan qoruyucu kodlar */
 html, body, #root {
   margin: 0;
   padding: 0;
@@ -35,148 +34,116 @@ html, body, #root {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
 }
 
-/* Şəklin üzərinə yazıları oxunaqlı edən qaranlıq təbəqə */
 .evidence-container::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.4); 
+  background: rgba(0, 0, 0, 0.5); 
   z-index: 1;
 }
 
-/* Mərkəzi şüşə effekti qabığı */
 .central-ui-wrapper {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(8px);
-  padding: 40px 20px;
-  border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  width: 90%;
-  max-width: 400px;
+  background: rgba(0, 0, 0, 0.6); /* Daha tünd və ciddi fon */
+  backdrop-filter: blur(10px);
+  padding: 40px 30px;
+  border-radius: 4px; /* Daha kəskin künclər - sənəd havası */
+  border: 1px solid rgba(139, 0, 0, 0.3); /* Xəfif qırmızı çərçivə */
+  width: 85%;
+  max-width: 380px;
   text-align: center;
   z-index: 10;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.7);
-  box-sizing: border-box;
+  box-shadow: 0 0 40px rgba(0,0,0,0.9);
 }
 
 .game-title-v2 {
   color: #fff;
-  font-size: clamp(40px, 10vw, 56px); /* Ekrana görə böyüyüb-kiçilir */
-  text-shadow: 2px 5px 10px rgba(0,0,0,0.8);
+  font-size: clamp(36px, 8vw, 50px);
+  text-shadow: 2px 2px 0px #8b0000;
   margin: 0;
-  line-height: 1;
+  letter-spacing: 2px;
 }
 
-/* YENİ: "WHO IS THE KILLER?" - Qan axan və qırmızı */
+/* YENİ: Daha estetik, qırmızı və gərgin başlıq */
 .game-subtitle {
-  color: #d40000; /* Qan qırmızısı */
-  font-family: 'Nosifer', sans-serif; /* Qan axan şrift */
-  font-size: clamp(14px, 4vw, 18px); /* Ekrana uyğun ölçü */
-  margin: 15px 0 45px 0; /* Daha aydın məsafə */
-  letter-spacing: 1px;
-  text-shadow: 0 0 5px rgba(212, 0, 0, 0.5); /* Xəfif qırmızı parıltı */
+  color: #ff0000;
+  font-family: 'Creepster', system-ui; /* Daha peşəkar gərginlik */
+  font-size: 22px;
+  margin: 10px 0 40px 0;
+  letter-spacing: 3px;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
 
 .name-area-wrapper {
   position: relative;
   width: 100%;
-  max-width: 320px;
   margin: 0 auto;
-  text-align: center;
 }
 
-/* İnput və Düyməni bir xətdə tutan qutu */
 .input-group {
   display: flex;
   align-items: center;
   justify-content: center;
-  border-bottom: 2px dashed rgba(255,255,255,0.4);
-  position: relative;
-  padding-bottom: 8px;
-  gap: 12px;
+  border-bottom: 2px solid #8b0000; /* Qırmızı bütöv xətt */
+  padding-bottom: 5px;
+  gap: 10px;
 }
 
-/* YENİ: USERNAME yazılan yer - Daha böyük */
 .name-input-v2 {
   flex: 1;
-  min-width: 0;
   background: transparent;
   border: none;
   font-family: 'Special Elite', cursive;
-  font-size: 24px; /* <-- YAZI BÖYÜDÜ (əvvəl 18px idi) */
-  padding: 10px 0;
+  font-size: 22px;
   outline: none;
   color: #fff;
   text-align: center;
-  transition: opacity 0.3s;
 }
 
 .name-input-v2::placeholder {
-  color: rgba(255, 255, 255, 0.5);
-  font-size: 16px; /* Placeholder azca böyüdü */
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 16px;
+  letter-spacing: 1px;
 }
 
-.name-input-v2.confirmed-text {
-  opacity: 0.5;
-}
-
-/* ✓ Düyməsi */
 .confirm-btn.active {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0;
   background: #8b0000;
   color: white;
   border: none;
-  border-radius: 6px;
-  width: 45px; /* Düymə də azca böyüdü ki, yazıya uyğun olsun */
-  height: 45px;
+  border-radius: 0; /* Kəskin künclər */
+  width: 40px;
+  height: 40px;
   cursor: pointer;
-  font-weight: bold;
-  font-size: 22px;
+  font-size: 20px;
   flex-shrink: 0;
-  transition: transform 0.2s, background-color 0.2s;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  transition: all 0.3s;
 }
 
 .confirm-btn.active:hover {
-  transform: scale(1.1);
-  background-color: #a61c1c;
+  background-color: #ff0000;
+  box-shadow: 0 0 15px #ff0000;
 }
 
-/* "BAM" DEYƏ DÜŞƏN MÖHÜR */
 .name-stamp-overlay {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 160px; /* Möhür də azca böyüdü */
-  height: auto;
+  width: 180px; /* Möhürü bir az da böyütdük */
   opacity: 0;
   animation: stampSlap 0.3s cubic-bezier(0.25, 1, 0.5, 1) forwards;
   pointer-events: none;
   z-index: 20;
 }
 
-/* Qırmızıya çevirən filtr */
 .red-filter {
-  filter: sepia(100%) hue-rotate(-50deg) saturate(300%) contrast(150%) drop-shadow(0 5px 10px rgba(0,0,0,0.5));
+  filter: sepia(100%) hue-rotate(-50deg) saturate(400%) contrast(120%) drop-shadow(0 0 10px rgba(139,0,0,0.5));
 }
 
 @keyframes stampSlap {
-  0% { 
-    transform: translate(-50%, -50%) scale(4) rotate(-40deg); 
-    opacity: 0; 
-  }
-  70% { 
-    transform: translate(-50%, -50%) scale(0.9) rotate(-15deg); 
-    opacity: 1; 
-  }
-  100% { 
-    transform: translate(-50%, -50%) scale(1) rotate(-15deg); 
-    opacity: 1; 
-  }
+  0% { transform: translate(-50%, -50%) scale(5) rotate(-45deg); opacity: 0; }
+  100% { transform: translate(-50%, -50%) scale(1) rotate(-15deg); opacity: 0.9; }
 }
