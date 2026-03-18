@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import StartScreen from './StartScreen';
 
 // Şəkillərin importu
 import saraImg from './assets/Sara (The Influencer).png';
@@ -29,7 +30,6 @@ function App() {
   // 1. STATELƏR
   const [username, setUsername] = useState(() => localStorage.getItem('username') || "");
   const [activeTab, setActiveTab] = useState('case'); 
-  const [tempName, setTempName] = useState("");
   const [balance, setBalance] = useState(() => Number(localStorage.getItem('balance')) || 0);
   const [energy, setEnergy] = useState(() => Number(localStorage.getItem('energy')) || 10);
   const [level, setLevel] = useState(() => Number(localStorage.getItem('level')) || 1);
@@ -99,14 +99,6 @@ function App() {
     window.location.reload();
   };
 
-  const handleStart = () => {
-    if(tempName.trim().length > 2) {
-      setUsername(tempName.trim());
-    } else {
-      alert("Name too short! (Min 3 chars)");
-    }
-  };
-
   const handleSearch = () => {
     if (isGameOver || energy <= 0) return;
     setBalance(prev => prev + 10);
@@ -140,26 +132,10 @@ function App() {
     }, 3000);
   };
 
-  // 4. GİRİŞ EKRANI
+  // 4. GİRİŞ EKRANI (YENİ QAPI)
   if (!username) {
-    return (
-      <div style={{ backgroundColor: '#000', color: '#fff', height: '100vh', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', fontFamily: 'monospace', padding: '20px', textAlign: 'center', boxSizing: 'border-box' }}>
-        <h1 style={{ color: '#8b0000', letterSpacing: '4px', fontSize: '2rem', marginBottom: '30px' }}>TEN THREADS</h1>
-        <div style={{ width: '100%', maxWidth: '300px', backgroundColor: '#111', padding: '30px', borderRadius: '20px', border: '1px solid #222', boxSizing: 'border-box' }}>
-          <label style={{ color: '#8b0000', fontSize: '0.7rem', display: 'block', marginBottom: '10px', textAlign: 'left' }}>ENTER DETECTIVE NAME:</label>
-          <input 
-            type="text" 
-            value={tempName}
-            onChange={(e) => setTempName(e.target.value)}
-            placeholder="..." 
-            style={{ width: '100%', padding: '15px', backgroundColor: '#000', border: '1px solid #333', color: '#fff', borderRadius: '10px', marginBottom: '20px', outline: 'none', boxSizing: 'border-box' }}
-          />
-          <button onClick={handleStart} style={{ width: '100%', padding: '15px', backgroundColor: '#8b0000', color: '#fff', border: 'none', borderRadius: '10px', fontWeight: 'bold', cursor: 'pointer', boxSizing: 'border-box' }}>
-            START CASE
-          </button>
-        </div>
-      </div>
-    );
+    // Burada StartScreen komponentini çağırırıq və ad daxil ediləndə onu setUsername-ə ötürürük
+    return <StartScreen onStartGame={(name) => setUsername(name)} />;
   }
 
   // 5. ƏSAS TƏTBİQ (APP) EKRANI

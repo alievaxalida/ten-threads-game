@@ -1,0 +1,268 @@
+/* Special Elite fontunu (Daktilo şrifti) Google-dan götürürük */
+@import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
+
+.start-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  background-color: #050505;
+  font-family: 'Special Elite', cursive;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Qaranlıq Dumanlı Atmosfer Arxa Planı */
+.detective-smoke-bg {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, #222 0%, #000 100%);
+  opacity: 0.8;
+  z-index: 1;
+}
+
+/* Duman effekti (pseudo-elementlərlə) */
+.detective-smoke-bg::before,
+.detective-smoke-bg::after {
+  content: '';
+  position: absolute;
+  inset: -100px;
+  background: transparent;
+  background-image: radial-gradient(#333 10%, transparent 40%);
+  background-size: 50px 50px;
+  opacity: 0.2;
+  animation: dumanHareketi 20s linear infinite;
+}
+
+.detective-smoke-bg::after {
+  animation-duration: 30s;
+  animation-delay: -5s;
+}
+
+@keyframes dumanHareketi {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  100% { transform: translate(50px, 100px) rotate(360deg); }
+}
+
+/* YENİ QOVLUQ DİZAYNI - Sənin şəklinə uyğun tekstura */
+.case-folder-v2 {
+    position: relative;
+    width: 90%;
+    max-width: 420px;
+    height: 600px;
+    /* Daha açıq, realistik qovluq rəngi */
+    background-color: #d1b894; 
+    background-image: 
+      linear-gradient(45deg, rgba(0,0,0,0.05) 25%, transparent 25%),
+      linear-gradient(-45deg, rgba(0,0,0,0.05) 25%, transparent 25%),
+      radial-gradient(rgba(0,0,0,0.1) 1px, transparent 1px);
+    background-size: 4px 4px, 4px 4px, 10px 10px;
+    border-radius: 5px 25px 5px 5px;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.7), inset 0 0 60px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    padding: 40px;
+    border: 2px solid #a38761;
+    z-index: 10;
+    box-sizing: border-box;
+  }
+
+/* Metal bəndlər effekti */
+.folder-metal-clasps {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 150px;
+  height: 5px;
+  background: linear-gradient(to right, #666, #999, #666);
+  border-radius: 3px;
+  opacity: 0.6;
+}
+
+/* QIRMIZI CONFIDENTIAL MÖHÜRÜ */
+.confidential-stamp {
+  position: absolute;
+  top: 40px;
+  right: 20px;
+  border: 4px solid #8b0000;
+  color: #8b0000;
+  font-family: Impact, sans-serif;
+  font-size: 18px;
+  padding: 2px 10px;
+  transform: rotate(20deg);
+  font-weight: bold;
+  opacity: 0.5;
+  letter-spacing: 2px;
+}
+
+/* Başlıq Dizaynı - Şəkildəki kimi qırmızı daktilo */
+.game-title-v2 {
+  color: #6a0d0d;
+  font-size: 48px;
+  letter-spacing: -2px;
+  margin: 40px 0 0 0;
+  text-align: left;
+  line-height: 1;
+}
+
+.game-subtitle {
+  color: #fff;
+  font-size: 16px;
+  margin: 5px 0 30px 0;
+  opacity: 0.7;
+  text-align: left;
+}
+
+/* İnteqrasiya edilmiş Ad Yazılan Yer */
+.name-paper-integrated {
+  width: 100%;
+  margin-bottom: auto;
+  margin-top: 20px;
+  text-align: left;
+}
+
+.paper-label-v2 {
+    display: block;
+    font-size: 13px;
+    color: #222; /* Daha tünd və oxunaqlı */
+    font-weight: bold;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+  }
+
+.name-input-v2 {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 2px dashed #444; /* Qırıq xətti daha aydın etdik */
+    font-family: 'Special Elite', cursive;
+    font-size: 18px;
+    padding: 5px 0;
+    outline: none;
+    color: #000;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+.name-input-v2::placeholder {
+    color: #666; /* Yazı yerinin arxa planındakı nümunə yazını aydınlaşdırdıq */
+    font-weight: normal;
+  }
+
+.detective-label {
+    font-size: 12px;
+    color: #222;
+    font-weight: bold;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+  }
+
+/* MÖHÜR DÜYMƏSİ SAHƏSİ (Sağ aşağı küncdə) */
+.seal-button-area {
+  position: absolute;
+  bottom: 40px;
+  right: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.detective-label {
+  font-size: 10px;
+  color: #554838;
+  margin-bottom: 10px;
+  opacity: 0.6;
+}
+
+/* MÖHÜR DÜYMƏSİ - Əsas Struktur */
+.wax-seal-stamp-btn {
+  position: relative;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #a61c1c, #630505);
+  border: none;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.1s ease;
+  transform-origin: center center;
+}
+
+/* Möhür Ortasındakı İkon */
+.seal-icon-design {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  opacity: 0.8;
+}
+
+.mansion-svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Möhür Dairəvi Yazısı (SVG) */
+.seal-text-svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg); /* Yazını yuxarıdan başlatmaq üçün */
+}
+
+.seal-text-content {
+  font-size: 11px;
+  font-weight: bold;
+  fill: #fcebeb;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-family: serif; /* Köhnə serif şrifti */
+}
+
+/* --- ANIMASIYA VƏ EFFEKTLƏR --- */
+
+/* 1. Möhürü Vurma (basılma) animasiyası */
+.wax-seal-stamp-btn.stamping {
+  animation: mohurVurma 0.6s ease-out forwards;
+}
+
+@keyframes mohurVurma {
+  0% { transform: scale(1); box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
+  20% { transform: scale(0.85); box-shadow: 0 2px 5px rgba(0,0,0,0.8); } /* Sürətli aşağı basılma */
+  50% { transform: scale(0.95); box-shadow: 0 10px 20px rgba(0,0,0,0.5); } /* Yavaşca yuxarı qalxma */
+  100% { transform: scale(1); } /* Son mövqe */
+}
+
+/* 2. Möhür vuranda çıxan Duman Pufu */
+.stamp-smoke-puff {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(200,200,200,0.5) 0%, transparent 70%);
+  animation: dumanPufuAnim 0.8s ease-out forwards;
+  pointer-events: none;
+  z-index: 5;
+}
+
+@keyframes dumanPufuAnim {
+  0% { transform: scale(0.5); opacity: 1; }
+  100% { transform: scale(2); opacity: 0; }
+}
+
+/* 3. Möhür vuranda Kamera Titrəməsi (Folderin özü titrəyir) */
+.start-wrapper.camera-shake .case-folder-v2 {
+  animation: kameraTitremsi 0.3s linear;
+  animation-delay: 0.2s; /* Möhür tam dəyəndə başlasın */
+}
+
+@keyframes kameraTitremsi {
+  0%, 100% { transform: translate(0, 0); }
+  10%, 30%, 50%, 70%, 90% { transform: translate(-2px, 2px); }
+  20%, 40%, 60%, 80% { transform: translate(2px, -2px); }
+}
