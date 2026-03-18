@@ -35,15 +35,28 @@
   animation: dumanHareketi 20s linear infinite;
 }
 
-.detective-smoke-bg::after {
-  animation-duration: 30s;
-  animation-delay: -5s;
+.detective-smoke-bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, #2a2a2a 0%, #050505 100%);
+    z-index: 1;
+  }
+
+/* Fırlanan nöqtələri ləğv etdik! 
+Əvəzində yavaşca "nəfəs alan" və yerini dəyişən xəfif kölgə effekti əlavə etdik */
+.detective-smoke-bg::before {
+    content: '';
+    position: absolute;
+    inset: -100px;
+    background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.03) 0%, transparent 60%);
+    background-size: 200px 200px;
+    animation: dumanAxini 15s ease-in-out infinite alternate; 
 }
 
-@keyframes dumanHareketi {
-  0% { transform: translate(0, 0) rotate(0deg); }
-  100% { transform: translate(50px, 100px) rotate(360deg); }
-}
+@keyframes dumanAxini {
+    0% { transform: translate(0px, 0px) scale(1); }
+    100% { transform: translate(40px, -20px) scale(1.2); }
+  }
 
 /* YENİ QOVLUQ DİZAYNI - Sənin şəklinə uyğun tekstura */
 .case-folder-v2 {
