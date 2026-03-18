@@ -23,18 +23,27 @@
 /* SÜBUTLAR KONTEYNERİ - Şəkil teksturası ilə */
 .evidence-container {
   position: relative;
-  width: 90%;
-  max-width: 420px;
-  height: 600px;
-  background-size: cover; /* Şəkli bütün konteynerə yay */
-  background-position: center; /* Şəkli mərkəzə yerləşdir */
-  border-radius: 15px;
-  box-shadow: 0 25px 50px rgba(0,0,0,0.7);
+  width: 100vw; /* Ekranın tam eni */
+  height: 100vh; /* Ekranın tam hündürlüyü */
+  background-size: cover; /* Şəkli dartmadan bütün ekranı ört */
+  background-position: center center; /* Şəklin tam mərkəzini göstər */
+  background-repeat: no-repeat;
   display: flex;
   flex-direction: column;
-  padding: 40px;
+  justify-content: center; /* Elementləri şaquli mərkəzlə */
+  align-items: center; /* Elementləri üfüqi mərkəzlə */
+  padding: 20px;
   z-index: 10;
   box-sizing: border-box;
+}
+
+/* Şəklin üstünə bir az qaranlıq təbəqə verək ki, yazılar oxunsun */
+.evidence-container::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4); /* 40% qaraltma */
+  z-index: -1;
 }
 
 .game-title-v2 {
@@ -55,10 +64,21 @@
 }
 
 .name-paper-integrated {
-  width: 100%;
-  margin-top: auto; /* Ad yazılan yeri mərkəzdən aşağıya sürüşdür */
-  margin-bottom: auto;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px); /* Arxa planı bir az bulandıraq */
+  padding: 30px;
+  border-radius: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  width: 90%;
+  max-width: 350px;
   text-align: center;
+  margin-top: 20px;
+}
+
+.game-title-v2 {
+  font-size: 60px;
+  text-shadow: 2px 5px 10px rgba(0,0,0,0.8);
+  margin-bottom: 0;
 }
 
 .paper-label-v2 {
