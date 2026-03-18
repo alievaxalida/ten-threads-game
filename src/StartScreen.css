@@ -15,24 +15,19 @@
 
 /* Qaranlıq Dumanlı Atmosfer Arxa Planı */
 .detective-smoke-bg {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at center, #222 0%, #000 100%);
-  opacity: 0.8;
-  z-index: 1;
-}
+    position: absolute;
+    inset: 0;
+    /* Mərkəzdən kənarlara doğru qaralan təmiz arxa plan */
+    background: radial-gradient(circle at center, #1a1a1a 0%, #000000 100%);
+    z-index: 1;
+    overflow: hidden;
+  }
 
 /* Duman effekti (pseudo-elementlərlə) */
+/* Köhnə nöqtələri və animasiyaları tamamilə ləğv etdik */
 .detective-smoke-bg::before,
 .detective-smoke-bg::after {
-  content: '';
-  position: absolute;
-  inset: -100px;
-  background: transparent;
-  background-image: radial-gradient(#333 10%, transparent 40%);
-  background-size: 50px 50px;
-  opacity: 0.2;
-  animation: dumanHareketi 20s linear infinite;
+  display: none;
 }
 
 .detective-smoke-bg {
