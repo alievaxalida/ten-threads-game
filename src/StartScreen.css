@@ -1,13 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
-/* Daha ciddi və gərgin bir qorxu şrifti */
-@import url('https://fonts.googleapis.com/css2?family=Creepster&display=swap');
 
+/* =========================================
+   1. RESET VƏ EKRAN QORUYUCULARI
+   ========================================= */
 html, body, #root {
   margin: 0;
   padding: 0;
   width: 100%;
   height: 100%;
   overflow: hidden;
+  background-color: #000;
 }
 
 .start-wrapper {
@@ -18,12 +20,14 @@ html, body, #root {
   height: 100vh;
   z-index: 9999;
   font-family: 'Special Elite', cursive;
-  background-color: #000;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
+/* =========================================
+   2. ARXA PLAN ŞƏKLİ VƏ QARANLIQ TƏBƏQƏ
+   ========================================= */
 .evidence-container {
   position: absolute;
   inset: 0;
@@ -34,116 +38,161 @@ html, body, #root {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 }
 
+/* Şəklin üzərinə oxunaqlılıq qatan tünd filtr */
 .evidence-container::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5); 
+  background: rgba(0, 0, 0, 0.4); 
   z-index: 1;
 }
 
+/* =========================================
+   3. MƏRKƏZİ ŞÜŞƏ QUTU (Zərif və Şəffaf)
+   ========================================= */
 .central-ui-wrapper {
-  background: rgba(0, 0, 0, 0.6); /* Daha tünd və ciddi fon */
-  backdrop-filter: blur(10px);
-  padding: 40px 30px;
-  border-radius: 4px; /* Daha kəskin künclər - sənəd havası */
-  border: 1px solid rgba(139, 0, 0, 0.3); /* Xəfif qırmızı çərçivə */
-  width: 85%;
-  max-width: 380px;
+  background: rgba(0, 0, 0, 0.3); /* Çox yüngül qaranlıq */
+  backdrop-filter: blur(8px); /* Arxanı dumanlandırır */
+  padding: 40px 20px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  width: 90%;
+  max-width: 400px;
   text-align: center;
   z-index: 10;
-  box-shadow: 0 0 40px rgba(0,0,0,0.9);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+  box-sizing: border-box;
 }
 
+/* =========================================
+   4. BAŞLIQLAR (Vahid şrift, təmiz rənglər)
+   ========================================= */
 .game-title-v2 {
   color: #fff;
-  font-size: clamp(36px, 8vw, 50px);
-  text-shadow: 2px 2px 0px #8b0000;
+  font-family: 'Special Elite', cursive;
+  font-size: clamp(40px, 10vw, 56px); /* Ekrana görə tənzimlənir */
+  text-shadow: 2px 4px 10px rgba(0,0,0,0.9);
   margin: 0;
+  line-height: 1;
   letter-spacing: 2px;
 }
 
-/* YENİ: Daha estetik, qırmızı və gərgin başlıq */
 .game-subtitle {
-  color: #ff0000;
-  font-family: 'Creepster', system-ui; /* Daha peşəkar gərginlik */
-  font-size: 22px;
-  margin: 10px 0 40px 0;
-  letter-spacing: 3px;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+  color: rgba(255, 255, 255, 0.7);
+  font-family: 'Special Elite', cursive;
+  font-size: 15px;
+  margin: 15px 0 45px 0;
+  letter-spacing: 4px;
+  text-transform: uppercase;
 }
 
+/* =========================================
+   5. İNPUT VƏ DÜYMƏ BÖLMƏSİ
+   ========================================= */
 .name-area-wrapper {
   position: relative;
   width: 100%;
+  max-width: 320px;
   margin: 0 auto;
+  text-align: center;
 }
 
+/* İnput və Düyməni bir xətdə tutan qutu (Ağ kəsikli xətt) */
 .input-group {
   display: flex;
   align-items: center;
   justify-content: center;
-  border-bottom: 2px solid #8b0000; /* Qırmızı bütöv xətt */
-  padding-bottom: 5px;
-  gap: 10px;
+  border-bottom: 2px dashed rgba(255, 255, 255, 0.4); 
+  position: relative;
+  padding-bottom: 8px;
+  gap: 12px;
 }
 
 .name-input-v2 {
   flex: 1;
+  min-width: 0; /* Mobildə daşmanın qarşısını alır */
   background: transparent;
   border: none;
   font-family: 'Special Elite', cursive;
-  font-size: 22px;
+  font-size: 18px;
+  padding: 10px 0;
   outline: none;
   color: #fff;
-  text-align: center;
+  text-align: center; /* Adı düz ortadan yazdırır */
+  letter-spacing: 2px;
+  transition: opacity 0.3s;
 }
 
 .name-input-v2::placeholder {
-  color: rgba(255, 255, 255, 0.3);
-  font-size: 16px;
-  letter-spacing: 1px;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 14px;
 }
 
+.name-input-v2.confirmed-text {
+  opacity: 0.5; /* Möhür vurulandan sonra solur */
+}
+
+/* =========================================
+   6. TƏK QIRMIZI VURĞU: ✓ DÜYMƏSİ
+   ========================================= */
 .confirm-btn.active {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #8b0000;
+  padding: 0;
+  background: #8b0000; /* Tünd qırmızı detektiv rəngi */
   color: white;
   border: none;
-  border-radius: 0; /* Kəskin künclər */
+  border-radius: 6px;
   width: 40px;
   height: 40px;
   cursor: pointer;
+  font-weight: bold;
   font-size: 20px;
-  flex-shrink: 0;
-  transition: all 0.3s;
+  flex-shrink: 0; /* Ekran darsa da, düymə əzilmir */
+  transition: transform 0.2s, background-color 0.2s;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
 .confirm-btn.active:hover {
-  background-color: #ff0000;
-  box-shadow: 0 0 15px #ff0000;
+  transform: scale(1.1);
+  background-color: #a61c1c;
 }
 
+/* =========================================
+   7. "ŞAPP!" MÖHÜR ANİMASİYASI (Tam mərkəz)
+   ========================================= */
 .name-stamp-overlay {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 180px; /* Möhürü bir az da böyütdük */
+  width: 140px; /* Möhürün qəşəng böyük ölçüsü */
+  height: auto;
   opacity: 0;
   animation: stampSlap 0.3s cubic-bezier(0.25, 1, 0.5, 1) forwards;
   pointer-events: none;
   z-index: 20;
 }
 
+/* Sənin şəkli qırmızıya çevirən kod */
 .red-filter {
-  filter: sepia(100%) hue-rotate(-50deg) saturate(400%) contrast(120%) drop-shadow(0 0 10px rgba(139,0,0,0.5));
+  filter: sepia(100%) hue-rotate(-50deg) saturate(300%) contrast(150%) drop-shadow(0 5px 10px rgba(0,0,0,0.5));
 }
 
 @keyframes stampSlap {
-  0% { transform: translate(-50%, -50%) scale(5) rotate(-45deg); opacity: 0; }
-  100% { transform: translate(-50%, -50%) scale(1) rotate(-15deg); opacity: 0.9; }
+  0% { 
+    transform: translate(-50%, -50%) scale(4) rotate(-40deg); 
+    opacity: 0; 
+  }
+  70% { 
+    transform: translate(-50%, -50%) scale(0.9) rotate(-15deg); 
+    opacity: 1; 
+  }
+  100% { 
+    transform: translate(-50%, -50%) scale(1) rotate(-15deg); 
+    opacity: 1; 
+  }
 }
