@@ -1,24 +1,20 @@
 import React, { useState } from 'react';
 import './StartScreen.css';
+import evidenceBg from './assets/evidence-bg.jpg'; // Sübutlar şəklini import et
 
 export default function StartScreen({ onStartGame }) {
   const [detectiveName, setDetectiveName] = useState('');
-  const [isStamping, setIsStamping] = useState(false); // Möhür animasiyası gedir?
-  const [showSmoke, setShowSmoke] = useState(false); // Duman effekti görünsün?
+  const [isStamping, setIsStamping] = useState(false); 
+  const [showSmoke, setShowSmoke] = useState(false); 
 
   const handleStartRequest = () => {
-    // Əgər ad yazmayıbsa, standart ad veririk
     const finalName = detectiveName.trim() === '' ? 'Məchul Detektiv' : detectiveName;
-    
-    // Animasiyanı başladırıq
     setIsStamping(true);
     
-    // Möhür tam dəyəndə (məsələn 300ms sonra) duman çıxsın
     setTimeout(() => {
       setShowSmoke(true);
     }, 200);
 
-    // Animasiya tam bitəndən sonra (məsələn 800ms) oyunu başla
     setTimeout(() => {
       onStartGame(finalName);
     }, 800);
@@ -26,22 +22,16 @@ export default function StartScreen({ onStartGame }) {
 
   return (
     <div className={`start-wrapper ${isStamping ? 'camera-shake' : ''}`}>
-      {/* Qaranlıq, dumanlı detektiv atmosferi background */}
+      {/* Qaranlıq Dumanlı Atmosfer Arxa Planı */}
       <div className="detective-smoke-bg"></div>
 
-      {/* Əsas Qovluq (Case File) */}
-      <div className="case-folder-v2">
-        {/* Metal bəndlər (yuxarıda) */}
-        <div className="folder-metal-clasps"></div>
-        
-        {/* QIRMIZI "CONFIDENTIAL" MÖHÜRÜ */}
-        <div className="confidential-stamp">CONFIDENTIAL</div>
-        
+      {/* SÜBUTLAR KONTEYNERİ (Yeni əsas struktur) */}
+      <div className="evidence-container" style={{ backgroundImage: `url(${evidenceBg})` }}>
         {/* Başlıq (Daktilo şrifti) */}
         <h1 className="game-title-v2">TEN THREADS</h1>
         <p className="game-subtitle">WHO IS THE KILLER?</p>
 
-        {/* Ad yazılan kağız hissəsi */}
+        {/* Ad yazılan kağız hissəsi - Sübutlar konteynerinin mərkəzində */}
         <div className="name-paper-integrated">
           <label className="paper-label-v2">DETECTIVE NAME:</label>
           <input 
@@ -54,27 +44,18 @@ export default function StartScreen({ onStartGame }) {
           />
         </div>
 
-        {/* MÖHÜR VURAN DÜYMƏ STRUKTURU */}
+        {/* MÖHÜR VURAN DÜYMƏ STRUKTURU - Sağ aşağıda sabit qalır */}
         <div className="seal-button-area">
-          <div className="detective-label">START CASE:</div>
-          
           <button 
             className={`wax-seal-stamp-btn ${isStamping ? 'stamping' : ''}`} 
             onClick={handleStartRequest}
-            disabled={isStamping} // Animasiya vaxtı təkrarlanmasın
+            disabled={isStamping} 
           >
-            {/* Möhürün ortasındakı xüsusi ikon (Mansion/Gate) */}
-            <div className="seal-icon-design">
-              <svg viewBox="0 0 100 100" className="mansion-svg">
-                <path d="M10,90 L90,90 L90,50 L50,10 L10,50 Z M30,90 L30,60 L70,60 L70,90 M50,10 L50,60" stroke="#fcebeb" fill="none" strokeWidth="3"/>
-              </svg>
-            </div>
-            {/* Möhürün dairəvi yazısı (Düzəldilmiş versiya) */}
+            {/* Möhürün dairəvi yazısı */}
             <svg className="seal-text-svg" viewBox="0 0 100 100">
-              {/* Daha geniş və mərkəzli dairə yolu */}
-              <path id="sealPath" d="M 50, 50 m -38, 0 a 38,38 0 1,1 76,0 a 38,38 0 1,1 -76,0" fill="none"/>
+              <path id="sealPath" d="M 20,50 a 30,30 0 1,1 60,0 a 30,30 0 1,1 -60,0" fill="none"/>
               <text className="seal-text-content">
-                <textPath xlinkHref="#sealPath" startOffset="0%">• START CASE • TEN THREADS </textPath>
+                <textPath xlinkHref="#sealPath">START CASE • TEN THREADS • </textPath>
               </text>
             </svg>
           </button>
