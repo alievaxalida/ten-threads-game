@@ -14,7 +14,15 @@
   --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
   --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
   --mono: ui-monospace, Consolas, monospace;
-
+  
+  html, body, #root {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden; /* Ekranın sağa-sola qaçmaması üçün */
+  }
+  
   font: 18px/145% var(--sans);
   letter-spacing: 0.18px;
   color-scheme: light dark;
