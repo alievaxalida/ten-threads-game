@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
+/* Qan axan şrift üçün yeni import */
+@import url('https://fonts.googleapis.com/css2?family=Nosifer&display=swap');
 
 /* Əsas ekran və sürüşmənin qarşısını alan qoruyucu kodlar */
 html, body, #root {
@@ -68,11 +70,14 @@ html, body, #root {
   line-height: 1;
 }
 
+/* YENİ: "WHO IS THE KILLER?" - Qan axan və qırmızı */
 .game-subtitle {
-  color: #ddd;
-  font-size: 16px;
-  margin: 10px 0 40px 0;
+  color: #d40000; /* Qan qırmızısı */
+  font-family: 'Nosifer', sans-serif; /* Qan axan şrift */
+  font-size: clamp(14px, 4vw, 18px); /* Ekrana uyğun ölçü */
+  margin: 15px 0 45px 0; /* Daha aydın məsafə */
   letter-spacing: 1px;
+  text-shadow: 0 0 5px rgba(212, 0, 0, 0.5); /* Xəfif qırmızı parıltı */
 }
 
 .name-area-wrapper {
@@ -91,33 +96,34 @@ html, body, #root {
   border-bottom: 2px dashed rgba(255,255,255,0.4);
   position: relative;
   padding-bottom: 8px;
-  gap: 12px; /* Yazı və düymə arasında məsafə */
+  gap: 12px;
 }
 
+/* YENİ: USERNAME yazılan yer - Daha böyük */
 .name-input-v2 {
   flex: 1;
-  min-width: 0; /* Mobildə yazının düyməni sıxışdırmasını əngəlləyir */
+  min-width: 0;
   background: transparent;
   border: none;
   font-family: 'Special Elite', cursive;
-  font-size: 18px;
+  font-size: 24px; /* <-- YAZI BÖYÜDÜ (əvvəl 18px idi) */
   padding: 10px 0;
   outline: none;
   color: #fff;
-  text-align: center; /* Adı düz ortadan yazdırır */
+  text-align: center;
   transition: opacity 0.3s;
 }
 
 .name-input-v2::placeholder {
   color: rgba(255, 255, 255, 0.5);
-  font-size: 14px;
+  font-size: 16px; /* Placeholder azca böyüdü */
 }
 
 .name-input-v2.confirmed-text {
-  opacity: 0.5; /* Möhür vurulandan sonra solur */
+  opacity: 0.5;
 }
 
-/* ✓ Düyməsi - İndi tam mərkəzdə və əzilməzdir! */
+/* ✓ Düyməsi */
 .confirm-btn.active {
   display: flex;
   justify-content: center;
@@ -127,12 +133,12 @@ html, body, #root {
   color: white;
   border: none;
   border-radius: 6px;
-  width: 40px;
-  height: 40px;
+  width: 45px; /* Düymə də azca böyüdü ki, yazıya uyğun olsun */
+  height: 45px;
   cursor: pointer;
   font-weight: bold;
-  font-size: 20px;
-  flex-shrink: 0; /* Ekran darsa da, düymə balacalaşıb əzilmir */
+  font-size: 22px;
+  flex-shrink: 0;
   transition: transform 0.2s, background-color 0.2s;
   box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
@@ -142,12 +148,12 @@ html, body, #root {
   background-color: #a61c1c;
 }
 
-/* "BAM" DEYƏ DÜŞƏN MÖHÜR - Tam mərkəzdə */
+/* "BAM" DEYƏ DÜŞƏN MÖHÜR */
 .name-stamp-overlay {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 140px; /* Möhürün qəşəng böyük ölçüsü */
+  width: 160px; /* Möhür də azca böyüdü */
   height: auto;
   opacity: 0;
   animation: stampSlap 0.3s cubic-bezier(0.25, 1, 0.5, 1) forwards;
@@ -155,7 +161,7 @@ html, body, #root {
   z-index: 20;
 }
 
-/* Sənin şəkli qırmızıya çevirən və kölgə verən kod */
+/* Qırmızıya çevirən filtr */
 .red-filter {
   filter: sepia(100%) hue-rotate(-50deg) saturate(300%) contrast(150%) drop-shadow(0 5px 10px rgba(0,0,0,0.5));
 }

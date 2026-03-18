@@ -30,10 +30,10 @@ export default function StartScreen({ onStartGame }) {
 
           <div className="name-area-wrapper">
             <div className="input-group">
-              <input 
+            <input 
                 type="text" 
                 className={`name-input-v2 ${isConfirmed ? 'confirmed-text' : ''}`}
-                placeholder="DETECTIVE NAME..." 
+                placeholder="USERNAME..." // <-- BURA DƏYİŞDİ ("DETECTIVE NAME..." yerinə)
                 value={detectiveName}
                 onChange={(e) => !isConfirmed && setDetectiveName(e.target.value)}
                 disabled={isConfirmed}
