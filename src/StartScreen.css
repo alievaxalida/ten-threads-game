@@ -31,7 +31,10 @@
   border-radius: 0; 
   display: flex;
   flex-direction: column;
-  padding: 60px 30px; /* İçəridəki yazılar kənara yapışmasın */
+  
+  /* Yuxarı padding-i kəskin artırdıq ki, başlıq aşağı düşsün */
+  padding: 160px 30px 40px 30px; /* Yeni yuxarı padding dəyəri: 160px */
+  
   box-sizing: border-box;
   z-index: 10;
   border: none;
@@ -71,7 +74,10 @@
   color: #6a0d0d;
   font-size: 56px; /* Bir az daha böyük */
   letter-spacing: -2px;
-  margin: 20px 0 0 0;
+  
+  /* Margin-top-u artırdıq ki, başlıq aşağı düşsün */
+  margin-top: 40px; /* Yeni yuxarı margin dəyəri: 40px */
+  
   line-height: 1;
 }
 
