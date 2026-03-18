@@ -1,67 +1,78 @@
 import React, { useState } from 'react';
 import './StartScreen.css';
-import evidenceBg from './assets/evidence-bg.jpg'; // Sübutlar şəklini import et
+import evidenceBg from './assets/evidence-bg.jpg';
+import mySealImg from './assets/my-seal.png'; // Sənin hazırladığın möhür şəklini import et
 
 export default function StartScreen({ onStartGame }) {
   const [detectiveName, setDetectiveName] = useState('');
-  const [isStamping, setIsStamping] = useState(false); 
-  const [showSmoke, setShowSmoke] = useState(false); 
+  const [isConfirmed, setIsConfirmed] = useState(false); 
+  const [isStamping, setIsStamping] = useState(false);
+
+  // Adı təsdiqləyən funksiya
+  const confirmName = () => {
+    if (detectiveName.trim().length > 2) {
+      setIsConfirmed(true);
+    } else {
+      alert("Zəhmət olmasa adınızı daxil edin (min. 3 hərf)");
+    }
+  };
 
   const handleStartRequest = () => {
-    const finalName = detectiveName.trim() === '' ? 'Məchul Detektiv' : detectiveName;
+    if (!isConfirmed) return; // Ad təsdiqlənməyibsə oyuna başlama
     setIsStamping(true);
-    
     setTimeout(() => {
-      setShowSmoke(true);
-    }, 200);
-
-    setTimeout(() => {
-      onStartGame(finalName);
-    }, 800);
+      onStartGame(detectiveName);
+    }, 1000);
   };
 
   return (
-    <div className={`start-wrapper ${isStamping ? 'camera-shake' : ''}`}>
+    <div className="start-wrapper">
       {/* Qaranlıq Dumanlı Atmosfer Arxa Planı */}
       <div className="detective-smoke-bg"></div>
 
-      {/* SÜBUTLAR KONTEYNERİ (Yeni əsas struktur) */}
+      {/* SÜBUTLAR KONTEYNERI */}
       <div className="evidence-container" style={{ backgroundImage: `url(${evidenceBg})` }}>
-        {/* Başlıq (Daktilo şrifti) */}
         <h1 className="game-title-v2">TEN THREADS</h1>
         <p className="game-subtitle">WHO IS THE KILLER?</p>
+        
+        <div className="name-area-wrapper">
+          <div className="input-group">
+            <input 
+              type="text" 
+              className={`name-input-v2 ${isConfirmed ? 'confirmed-text' : ''}`}
+              placeholder="TYPE NAME... (R. CROFT)" 
+              value={detectiveName}
+              onChange={(e) => !isConfirmed && setDetectiveName(e.target.value)}
+              disabled={isConfirmed}
+              maxLength={20}
+            />
+            
+            {/* Təsdiq Düyməsi (Checkmark) */}
+            {!isConfirmed && (
+              <button className="confirm-btn" onClick={confirmName}>✓</button>
+            )}
+          </div>
 
-        {/* Ad yazılan kağız hissəsi - Sübutlar konteynerinin mərkəzində */}
-        <div className="name-paper-integrated">
-          <label className="paper-label-v2">DETECTIVE NAME:</label>
-          <input 
-            type="text" 
-            className="name-input-v2" 
-            placeholder="TYPE NAME... (R. CROFT)" 
-            value={detectiveName}
-            onChange={(e) => setDetectiveName(e.target.value)}
-            maxLength={20}
-          />
+          {/* Animasiyalı Möhür (Adın üzərinə düşən - Sənin möhürünün qırmızı variantı) */}
+          {isConfirmed && (
+            <img 
+              src={mySealImg} 
+              alt="Approved" 
+              className="name-stamp-overlay red-filter" 
+            />
+          )}
         </div>
 
-        {/* MÖHÜR VURAN DÜYMƏ STRUKTURU - Sağ aşağıda sabit qalır */}
-        <div className="seal-button-area">
+        {/* BAŞLATMA MÖHÜRÜ DÜYMƏSİ (Sənin möhürün) */}
+        <div className={`seal-button-area ${!isConfirmed ? 'locked' : ''}`}>
           <button 
-            className={`wax-seal-stamp-btn ${isStamping ? 'stamping' : ''}`} 
+            className={`my-wax-seal-btn ${isStamping ? 'stamping' : ''}`} 
             onClick={handleStartRequest}
-            disabled={isStamping} 
+            disabled={!isConfirmed || isStamping}
           >
-            {/* Möhürün dairəvi yazısı */}
-            <svg className="seal-text-svg" viewBox="0 0 100 100">
-              <path id="sealPath" d="M 20,50 a 30,30 0 1,1 60,0 a 30,30 0 1,1 -60,0" fill="none"/>
-              <text className="seal-text-content">
-                <textPath xlinkHref="#sealPath">START CASE • TEN THREADS • </textPath>
-              </text>
-            </svg>
+            <img src={mySealImg} alt="Start Case" className="seal-image" />
+            <span className="seal-btn-text">START CASE</span>
           </button>
-          
-          {/* Möhür dəyəndə çıxan xəfif duman */}
-          {showSmoke && <div className="stamp-smoke-puff"></div>}
         </div>
       </div>
     </div>
