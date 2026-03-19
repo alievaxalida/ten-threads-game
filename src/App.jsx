@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Zap, LogOut } from 'lucide-react';
+import { LogOut } from 'lucide-react';
 import StartScreen from './StartScreen';
 import './App.css';
 
-// Yeni Header Şəkillərinin importu (assets qovluğundan)
+// Yeni Header Şəkillərinin importu
 import bannerImg from './assets/banner.png';
 import badgeImg from './assets/badge.png';
 import coffeeImg from './assets/coffee.png';
@@ -58,7 +58,6 @@ function App() {
   const REFILL_TIME = 5 * 60 * 1000; 
   const XP_PER_LEVEL = 300;
 
-  // Enerji dolma sistemi
   useEffect(() => {
     const interval = setInterval(() => {
       const now = Date.now();
@@ -76,7 +75,6 @@ function App() {
     return () => clearInterval(interval);
   }, [energy, lastEnergyUpdate]);
 
-  // Yaddaşda saxlama
   useEffect(() => {
     if(username) {
       localStorage.setItem('username', username);
@@ -138,13 +136,11 @@ function App() {
   }
 
   return (
-    <div className="dashboard-container">
+    <div className="dashboard-container detective-hub">
       
-      {/* YENİ VİZUAL HEADER HİSSƏSİ */}
+      {/* SƏNİN YENİ VİZUAL HEADER-in */}
       <header className="detective-header" style={{ backgroundImage: `url(${bannerImg})` }}>
         <div className="header-overlay">
-          
-          {/* Sol tərəf: Nişan və Ad */}
           <div className="profile-group">
             <div className="badge-wrapper">
               <img src={badgeImg} alt="Badge" className="badge-img" />
@@ -155,17 +151,13 @@ function App() {
             </div>
           </div>
 
-          {/* Sağ tərəf: Enerji və Pul */}
           <div className="stats-group">
-            
-            {/* Enerji (Kofe) */}
             <div className="stat-item">
               <div className="icon-frame">
                 <img src={coffeeImg} alt="Energy" className="stat-icon" />
               </div>
               <div className="progress-info">
                 <div className="bar-bg">
-                  {/* Dinamik enerji barı */}
                   <div className="bar-fill energy-fill" style={{ width: `${(energy / 10) * 100}%` }}></div>
                 </div>
                 <span className="stat-value">
@@ -179,25 +171,22 @@ function App() {
               </div>
             </div>
 
-            {/* Pul (CC) */}
             <div className="stat-item">
               <div className="icon-frame">
                 <img src={ccImg} alt="Currency" className="stat-icon" />
               </div>
               <span className="stat-value gold-text">{balance} CC</span>
             </div>
-
           </div>
         </div>
       </header>
 
-      <main className="game-content">
+      <main className="game-content hub-main">
         {/* TAB 1: CASE */}
         {activeTab === 'case' && (
           <div className="case-tab">
             <div className="clue-display"><p>{clueMessage}</p></div>
             
-            {/* Yığılan İpucları Siyahısı */}
             {clueLog.length > 0 && !isGameOver && (
               <div style={{background: 'rgba(0,0,0,0.6)', padding: '10px', borderRadius: '5px', marginBottom: '15px', borderLeft: '3px solid #8b0000'}}>
                 <small style={{color: '#888'}}>EVIDENCE FILE:</small>
@@ -205,24 +194,33 @@ function App() {
               </div>
             )}
 
-            <div className="suspects-grid">
+            {/* SƏNİN YENİ ŞÜBHƏLİ DİZAYNIN (hub-suspect) */}
+            <div className="suspects-grid hub-grid">
               {suspectsData.map(s => (
-                <div key={s.id} className="suspect-card" style={{opacity: isGameOver ? 0.4 : 1}} onClick={() => !isGameOver && setSelectedSuspect(s)}>
-                  <img src={s.image} alt={s.name} className="suspect-img" />
-                  <div className="suspect-info"><h4>{s.name.toUpperCase()}</h4></div>
+                <div key={s.id} className="hub-suspect suspect-card" style={{opacity: isGameOver ? 0.4 : 1}} onClick={() => !isGameOver && setSelectedSuspect(s)}>
+                  <div className="hub-silhouette">
+                    <img src={s.image} alt={s.name} className="suspect-img" style={{height: '100%'}} />
+                  </div>
+                  <div className="suspect-info">
+                     <span className="hub-suspect-tag">{s.title}</span>
+                     <h4>{s.name.toUpperCase()}</h4>
+                  </div>
                 </div>
               ))}
             </div>
             
-            <div className="action-buttons">
+            <div className="action-buttons hub-actions">
               {!isGameOver ? (
                 energy > 0 ? (
-                  <button className="search-btn" onClick={handleSearch}>🔍 SEARCH EVIDENCE (-1⚡)</button>
+                  <button className="hub-btn hub-btn-primary search-btn" onClick={handleSearch}>
+                     🔍 SEARCH
+                     <span className="hub-btn-meta">-1 ENERGY</span>
+                  </button>
                 ) : (
-                  <button className="search-btn" disabled style={{background: '#333', color: '#888', border: 'none'}}>WAIT FOR ENERGY</button>
+                  <button className="hub-btn hub-btn-secondary" disabled>WAIT FOR ENERGY</button>
                 )
               ) : (
-                <button className="search-btn" onClick={initGame} style={{background: '#ffd700', color: '#000'}}>🔄 NEW CASE</button>
+                <button className="hub-btn hub-btn-primary" onClick={initGame}>🔄 NEW CASE</button>
               )}
             </div>
           </div>
@@ -267,26 +265,24 @@ function App() {
                   <span>XP: {xp}/{XP_PER_LEVEL}</span>
                 </div>
              </div>
-             <button className="logout-btn" onClick={handleLogout} style={{marginTop: '20px'}}><LogOut size={16}/> LOGOUT SYSTEM</button>
+             <button className="hub-btn hub-btn-secondary" onClick={handleLogout} style={{width: '100%', marginTop: '20px', color: '#ff4444', borderColor: '#ff4444'}}><LogOut size={16}/> LOGOUT</button>
           </div>
         )}
       </main>
 
+      {/* SƏNİN YENİ AŞAĞI MENYUN (İkonlarla) */}
       <nav className="bottom-navbar">
         <button className={activeTab === 'case' ? 'active' : ''} onClick={() => setActiveTab('case')}>
-          <img src={caseIcon} alt="Case" style={{ width: '25px', height: '25px', objectFit: 'contain' }} />
+          <img src={caseIcon} alt="Case" />
         </button>
-        
         <button className={activeTab === 'shop' ? 'active' : ''} onClick={() => setActiveTab('shop')}>
-          <img src={shopIcon} alt="Shop" style={{ width: '25px', height: '25px', objectFit: 'contain' }} />
+          <img src={shopIcon} alt="Shop" />
         </button>
-        
         <button className={activeTab === 'rank' ? 'active' : ''} onClick={() => setActiveTab('rank')}>
-          <img src={rankIcon} alt="Rank" style={{ width: '25px', height: '25px', objectFit: 'contain' }} />
+          <img src={rankIcon} alt="Rank" />
         </button>
-        
         <button className={activeTab === 'wallet' ? 'active' : ''} onClick={() => setActiveTab('wallet')}>
-          <img src={walletIcon} alt="Wallet" style={{ width: '25px', height: '25px', objectFit: 'contain' }} />
+          <img src={walletIcon} alt="Wallet" />
         </button>
       </nav>
 
