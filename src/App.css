@@ -102,7 +102,7 @@ body {
   transform: translateX(-50%);
   width: 95%; 
   max-width: 400px;
-  height: 75px; /* Barın hündürlüyünü bir az artırdıq ki, ikonlar sığsın */
+  height: 70px; /* Barın standart hündürlüyü */
   background: rgba(15, 15, 15, 0.95);
   backdrop-filter: blur(15px);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -123,34 +123,34 @@ body {
   justify-content: center;
   align-items: center;
   height: 100%;
+  cursor: pointer;
 }
 
 .bottom-navbar img {
-  width: 60px;
-  height: 60px;
+  /* Şəkillər artıq kəsildiyi üçün 35-40px tam ideal və aydın görünəcək */
+  width: 35px; 
+  height: 35px;
   object-fit: contain;
-  transform: scale(1.6); /* Daha təhlükəsiz və keyfiyyəti pozmayan böyütmə */
   transition: all 0.3s ease;
   filter: grayscale(100%) opacity(0.5);
+  transform: none; /* BÜTÜN SÜNİ BÖYÜTMƏLƏRİ LƏĞV ETDİK */
 }
 
 .bottom-navbar button.active img {
   filter: grayscale(0%) opacity(1) drop-shadow(0 0 10px rgba(255, 215, 0, 0.7));
-  transform: scale(1.9) translateY(-3px); /* Aktiv olanda yüngülcə böyüyür və yuxarı qalxır */
+  /* Aktiv olanda sadəcə çox yüngülcə böyüyüb yuxarı qalxsın */
+  transform: scale(1.15) translateY(-3px); 
 }
 
-/* Yalnız Mobil üçün xüsusi tənzimləmə */
+/* Mobil üçün tənzimləmələr */
 @media screen and (max-width: 600px) {
   .bottom-navbar {
-    height: 70px;
+    height: 65px;
     bottom: 10px;
   }
   .bottom-navbar img {
-    width: 50px;
-    height: 50px;
-    transform: scale(1.8); /* Telefonda kəsilməməsi üçün balansı qoruduq */
-  }
-  .bottom-navbar button.active img {
-    transform: scale(2.1) translateY(-2px);
+    /* Mobildə də eyni aydın ölçüdə qalsın */
+    width: 32px;
+    height: 32px;
   }
 }
