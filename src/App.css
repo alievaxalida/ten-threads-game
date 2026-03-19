@@ -97,22 +97,21 @@ body {
 /* 5. AŞAĞI MENYU (Nav Teksturası - nav-texture.png) */
 .bottom-navbar {
   position: fixed;
-  bottom: 10px;
+  bottom: 15px;
   left: 50%;
   transform: translateX(-50%);
   width: 95%; 
-  max-width: 420px;
-  height: 70px; /* Barı bir az incəltdik */
+  max-width: 400px;
+  height: 75px; /* Barın hündürlüyünü bir az artırdıq ki, ikonlar sığsın */
   background: rgba(15, 15, 15, 0.95);
   backdrop-filter: blur(15px);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
+  border-radius: 25px;
   display: flex;
   justify-content: space-around;
   align-items: center;
   padding: 0;
   z-index: 1000;
-  overflow: visible; /* İkonlar kənara çıxa bilsin */
 }
 
 .bottom-navbar button {
@@ -127,39 +126,31 @@ body {
 }
 
 .bottom-navbar img {
-  /* Şəklin öz ölçüsü */
-  width: 120px; 
-  height: 120px;
+  width: 60px;
+  height: 60px;
   object-fit: contain;
-  
-  /* ƏSAS HİLLƏ: Şəkli daxilən 2.5 dəfə böyüdürük ki, boşluqlar itsin */
-  transform: scale(2.5); 
-  
+  transform: scale(1.6); /* Daha təhlükəsiz və keyfiyyəti pozmayan böyütmə */
   transition: all 0.3s ease;
   filter: grayscale(100%) opacity(0.5);
 }
 
 .bottom-navbar button.active img {
-  /* Aktiv olanda həm rənglənir, həm də bir az daha böyüyür */
   filter: grayscale(0%) opacity(1) drop-shadow(0 0 10px rgba(255, 215, 0, 0.7));
-  transform: scale(2.8); 
+  transform: scale(1.9) translateY(-3px); /* Aktiv olanda yüngülcə böyüyür və yuxarı qalxır */
 }
 
-/* Yalnız mobil telefonlar üçün (maksimum 600px eni olan ekranlar) */
+/* Yalnız Mobil üçün xüsusi tənzimləmə */
 @media screen and (max-width: 600px) {
   .bottom-navbar {
-    height: 60px; /* Barı bir az daha incəldək */
+    height: 70px;
     bottom: 10px;
-    width: 95%;
   }
-
   .bottom-navbar img {
-    /* Telefonda scale-i bir az da artıraq və kənarlarını itiləşdirək */
-    transform: scale(3.2); 
-    image-rendering: -webkit-optimize-contrast; /* Şəkli daha iti (sharp) göstərir */
+    width: 50px;
+    height: 50px;
+    transform: scale(1.8); /* Telefonda kəsilməməsi üçün balansı qoruduq */
   }
-
   .bottom-navbar button.active img {
-    transform: scale(3.5);
+    transform: scale(2.1) translateY(-2px);
   }
 }
