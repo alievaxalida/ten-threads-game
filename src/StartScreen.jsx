@@ -16,7 +16,7 @@ export default function StartScreen({ onStartGame }) {
         onStartGame(detectiveName);
       }, 2500); 
     } else {
-      alert("Zəhmət olmasa adınızı daxil edin (min. 3 hərf)");
+      alert("Please add your username (min. 3 character)");
     }
   };
 

@@ -11,8 +11,7 @@ body {
 .dashboard-container {
   max-width: 450px;
   margin: 0 auto;
-  height: 100vh;
-  overflow: hidden;
+  mid-height: 100vh;
   color: #fff;
   display: flex;
   flex-direction: column;
@@ -383,7 +382,22 @@ body {
 }
 
 /* ORTA HİSSƏ */
-.game-content { flex: 1; padding: 15px; padding-bottom: 150px; overflow-y: auto; }
+
+.game-content { 
+  flex: 1; 
+  padding: 15px; 
+  padding-bottom: 150px; 
+}
+
+/* Shop, Rank və Wallet tablarını telefonda Case ilə eyni boyda etmək üçün: */
+.shop-tab, 
+.rank-tab, 
+.wallet-tab {
+  min-height: 1000px; /* Bu rəqəmi çox uzundursa azalda (məs: 800px), qısadırsa artıra bilərsən */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
 
 /* 3. İPUCU QUTUSU (Köhnə Kağız - paper-texture.png) */
 .clue-display { 
