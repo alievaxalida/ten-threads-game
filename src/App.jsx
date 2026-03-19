@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { Briefcase, ShoppingBag, Trophy, Wallet, Zap, LogOut } from 'lucide-react';
 import StartScreen from './StartScreen';
 
-// Şəkillərin importu
+// Şəkillərin importu (Sənin mövcud importların)
 import saraImg from './assets/Sara (The Influencer).png';
 import alexImg from './assets/Alex (The Hacker).png';
 import millerImg from './assets/Dr. Miller (The Surgeon).png';
@@ -27,7 +28,6 @@ const suspectsData = [
 ];
 
 function App() {
-  // 1. STATELƏR
   const [username, setUsername] = useState(() => localStorage.getItem('username') || "");
   const [activeTab, setActiveTab] = useState('case'); 
   const [balance, setBalance] = useState(() => Number(localStorage.getItem('balance')) || 0);
@@ -36,19 +36,16 @@ function App() {
   const [xp, setXp] = useState(() => Number(localStorage.getItem('xp')) || 0);
   const [lastEnergyUpdate, setLastEnergyUpdate] = useState(() => Number(localStorage.getItem('lastEnergyUpdate')) || Date.now());
   const [timeLeft, setTimeLeft] = useState(0);
-  
   const [killer, setKiller] = useState(() => JSON.parse(localStorage.getItem('currentKiller')) || null);
   const [clueLog, setClueLog] = useState(() => JSON.parse(localStorage.getItem('clueLog')) || []);
   const [clueMessage, setClueMessage] = useState(localStorage.getItem('clueMessage') || "INVESTIGATION BEGINS...");
   const [isGameOver, setIsGameOver] = useState(localStorage.getItem('isGameOver') === 'true');
   const [selectedSuspect, setSelectedSuspect] = useState(null);
-  
   const [isWatchingAd, setIsWatchingAd] = useState(false);
 
   const REFILL_TIME = 5 * 60 * 1000; 
   const XP_PER_LEVEL = 300;
 
-  // 2. EFFEKTLƏR
   useEffect(() => {
     const interval = setInterval(() => {
       const now = Date.now();
@@ -83,7 +80,6 @@ function App() {
 
   useEffect(() => { if (username && !killer) initGame(); }, [username]);
 
-  // 3. FUNKSİYALAR
   const initGame = () => {
     const randomSuspect = suspectsData[Math.floor(Math.random() * suspectsData.length)];
     setKiller(randomSuspect);
@@ -132,204 +128,160 @@ function App() {
     }, 3000);
   };
 
-  // 4. GİRİŞ EKRANI (YENİ QAPI)
   if (!username) {
-    // Burada StartScreen komponentini çağırırıq və ad daxil ediləndə onu setUsername-ə ötürürük
     return <StartScreen onStartGame={(name) => setUsername(name)} />;
   }
 
-  // 5. ƏSAS TƏTBİQ (APP) EKRANI
-  return (
-    <div style={{ 
-      backgroundColor: '#000', 
-      color: '#fff', 
-      minHeight: '100vh', 
-      width: '100%', 
-      maxWidth: '450px', 
-      margin: '0 auto', 
-      padding: '0 16px 100px 16px', 
-      position: 'relative', 
-      boxSizing: 'border-box',
-      fontFamily: 'monospace',
-      textAlign: 'left'
-    }}>
-      
-      <style>
-        {`@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }`}
-      </style>
-
-      {/* --- GLOBAL ÜST BAŞLIQ (HƏR TABDA GÖRÜNƏCƏK) --- */}
-      <div style={{ paddingTop: '20px', paddingBottom: '15px', borderBottom: '1px solid #222', marginBottom: '20px', width: '100%' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-          <div>
-            <h2 style={{ margin: 0, color: '#8b0000', fontSize: '1.1rem' }}>DET. {username.toUpperCase()}</h2>
-            <div style={{ color: '#00ccff', fontSize: '0.75rem', marginTop: '5px' }}>
-              ⚡ ENERGY: {energy}/10 
-              {energy < 10 && <span style={{ color: '#555', marginLeft: '5px' }}>({Math.floor(timeLeft/60)}:{(timeLeft%60).toString().padStart(2, '0')})</span>}
+  // --- RENDER CONTENT (DASHBOARD LOGIC) ---
+  const renderTabContent = () => {
+    switch (activeTab) {
+      case 'case':
+        return (
+          <div className="case-tab">
+            <div className="clue-display">
+              <p>{clueMessage}</p>
             </div>
-          </div>
-          <div style={{ color: '#ffd700', fontWeight: 'bold', fontSize: '1.2rem', textAlign: 'right' }}>
-            {balance} CC
-          </div>
-        </div>
-      </div>
 
-      {/* --- TAB 1: CASE (OYUN EKRANI) --- */}
-      {activeTab === 'case' && (
-        <div style={{ width: '100%' }}>
-          <div style={{ minHeight: '70px', backgroundColor: '#111', borderRadius: '12px', borderLeft: '4px solid #8b0000', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '10px 15px', boxSizing: 'border-box', marginBottom: '20px', width: '100%' }}>
-            <p style={{ margin: 0, fontSize: '0.8rem', color: '#ddd', fontWeight: 'bold', textAlign: 'center' }}>
-              {clueMessage}
-            </p>
-          </div>
+            {clueLog.length > 0 && !isGameOver && (
+              <div className="evidence-log">
+                <small>EVIDENCE FILE:</small>
+                {clueLog.map((log, i) => <div key={i} className="log-item">{log}</div>)}
+              </div>
+            )}
 
-          {clueLog.length > 0 && !isGameOver && (
-            <div style={{ marginBottom: '20px', padding: '12px', backgroundColor: '#080808', borderRadius: '10px', border: '1px dashed #333', width: '100%', boxSizing: 'border-box' }}>
-              <div style={{ fontSize: '0.65rem', color: '#666', marginBottom: '8px' }}>FILE EVIDENCE:</div>
-              {clueLog.map((log, index) => (
-                <div key={index} style={{ fontSize: '0.7rem', color: '#aaa', marginBottom: '4px', borderLeft: '2px solid #444', paddingLeft: '8px' }}>{log}</div>
+            <div className="suspects-grid">
+              {suspectsData.map(s => (
+                <div key={s.id} className={`suspect-card ${isGameOver ? 'disabled' : ''}`} onClick={() => !isGameOver && setSelectedSuspect(s)}>
+                  <img src={s.image} alt={s.name} />
+                  <div className="suspect-info">
+                    <h4>{s.name.toUpperCase()}</h4>
+                  </div>
+                </div>
               ))}
             </div>
-          )}
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', paddingBottom: '30px', width: '100%' }}>
-            {suspectsData.map(s => (
-              <div key={s.id} onClick={() => !isGameOver && setSelectedSuspect(s)} style={{ backgroundColor: '#111', borderRadius: '12px', overflow: 'hidden', border: '1px solid #222', opacity: isGameOver ? 0.3 : 1, cursor: 'pointer', width: '100%' }}>
-                <div style={{ width: '100%', height: '145px', backgroundColor: '#0a0a0a' }}>
-                  <img src={s.image} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }} />
-                </div>
-                <div style={{ padding: '10px', textAlign: 'center' }}>
-                  <h4 style={{ margin: 0, fontSize: '0.8rem', color: '#fff' }}>{s.name.toUpperCase()}</h4>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div style={{ position: 'fixed', bottom: '90px', left: '50%', transform: 'translateX(-50%)', width: '90%', maxWidth: '410px', zIndex: 100, display: 'flex', flexDirection: 'column', gap: '10px' }}>
-            {!isGameOver ? (
-              energy > 0 ? (
-                <button onClick={handleSearch} style={{ width: '100%', padding: '18px', backgroundColor: '#8b0000', color: 'white', border: 'none', borderRadius: '15px', fontWeight: 'bold', cursor: 'pointer', boxShadow: '0 4px 15px rgba(0,0,0,0.5)', boxSizing: 'border-box' }}>
-                  🔍 SEARCH EVIDENCE (-1⚡)
-                </button>
+            <div className="action-buttons">
+              {!isGameOver ? (
+                energy > 0 ? (
+                  <button className="search-btn" onClick={handleSearch}>🔍 SEARCH EVIDENCE (-1⚡)</button>
+                ) : (
+                  <div className="out-of-energy">
+                    <button disabled className="disabled-btn">WAIT: {Math.floor(timeLeft/60)}:{(timeLeft%60).toString().padStart(2, '0')}</button>
+                    <button className="ad-btn" onClick={handleWatchAd}>📺 WATCH AD (+1⚡)</button>
+                  </div>
+                )
               ) : (
-                <>
-                  <button disabled style={{ width: '100%', padding: '12px', backgroundColor: '#222', color: '#888', border: 'none', borderRadius: '15px', fontWeight: 'bold', boxSizing: 'border-box' }}>
-                    WAIT FOR REFILL ({Math.floor(timeLeft/60)}:{(timeLeft%60).toString().padStart(2, '0')})
-                  </button>
-                  <button onClick={handleWatchAd} style={{ width: '100%', padding: '16px', backgroundColor: '#00ccff', color: '#000', border: 'none', borderRadius: '15px', fontWeight: 'bold', cursor: 'pointer', boxShadow: '0 4px 15px rgba(0,204,255,0.4)', boxSizing: 'border-box' }}>
-                    📺 WATCH AD (+1 ⚡)
-                  </button>
-                </>
-              )
-            ) : (
-              <button onClick={initGame} style={{ width: '100%', padding: '18px', backgroundColor: '#ffd700', color: '#000', border: 'none', borderRadius: '15px', fontWeight: 'bold', cursor: 'pointer', boxShadow: '0 4px 15px rgba(0,0,0,0.5)', boxSizing: 'border-box' }}>
-                🔄 NEW CASE
-              </button>
-            )}
-          </div>
-        </div>
-      )}
-
-      {/* --- TAB 2: SHOP --- */}
-      {activeTab === 'shop' && (
-        <div style={{ width: '100%' }}>
-          <h3 style={{ color: '#fff', margin: '0 0 15px 0' }}>DETECTIVE SHOP</h3>
-          <div style={{ backgroundColor: '#111', padding: '20px', borderRadius: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', border: '1px solid #222', width: '100%', boxSizing: 'border-box' }}>
-            <div>
-              <div style={{ fontWeight: 'bold', fontSize: '1.1rem' }}>⚡ FULL ENERGY</div>
-              <div style={{ fontSize: '0.75rem', color: '#888', marginTop: '5px' }}>Instantly refill 10 energy.</div>
+                <button className="new-case-btn" onClick={initGame}>🔄 NEW CASE</button>
+              )}
             </div>
-            <button onClick={() => {
-              if(balance >= 200) { setBalance(b => b - 200); setEnergy(10); } else { alert("Not enough CC!"); }
-            }} style={{ backgroundColor: '#ffd700', color: '#000', border: 'none', padding: '12px 18px', borderRadius: '8px', fontWeight: 'bold', cursor: 'pointer' }}>200 CC</button>
           </div>
-        </div>
-      )}
-
-      {/* --- TAB 3: LEADERBOARD --- */}
-      {activeTab === 'leaderboard' && (
-        <div style={{ width: '100%' }}>
-          <h3 style={{ color: '#fff', margin: '0 0 15px 0' }}>TOP DETECTIVES</h3>
-          <div style={{ width: '100%' }}>
+        );
+      case 'shop':
+        return (
+          <div className="shop-tab">
+            <h3>DETECTIVE SHOP</h3>
+            <div className="shop-item">
+              <div>
+                <strong>⚡ FULL ENERGY</strong>
+                <p>Instantly refill 10 energy.</p>
+              </div>
+              <button onClick={() => {
+                if(balance >= 200) { setBalance(b => b - 200); setEnergy(10); } else { alert("Not enough CC!"); }
+              }}>200 CC</button>
+            </div>
+          </div>
+        );
+      case 'rank':
+        return (
+          <div className="rank-tab">
+            <h3>TOP DETECTIVES</h3>
             {[1,2,3,4,5].map(i => (
-              <div key={i} style={{ display: 'flex', justifyContent: 'space-between', padding: '15px', backgroundColor: i === 1 ? '#222' : '#111', marginBottom: '8px', borderRadius: '8px', border: i===1 ? '1px solid #ffd700' : 'none', width: '100%', boxSizing: 'border-box' }}>
-                <span style={{ fontWeight: i === 1 ? 'bold' : 'normal', color: i === 1 ? '#ffd700' : '#fff' }}>
-                  {i}. {i === 1 ? username.toUpperCase() : `AGENT_${i*912}`}
-                </span>
-                <span style={{ color: '#00ccff' }}>LVL {6-i}</span>
+              <div key={i} className={`rank-item ${i===1 ? 'gold' : ''}`}>
+                <span>{i}. {i === 1 ? username.toUpperCase() : `AGENT_${i*912}`}</span>
+                <span className="lvl">LVL {6-i}</span>
               </div>
             ))}
           </div>
-        </div>
-      )}
-
-      {/* --- TAB 4: WALLET & PROFILE --- */}
-      {activeTab === 'wallet' && (
-        <div style={{ width: '100%' }}>
-          <h3 style={{ color: '#fff', margin: '0 0 15px 0', textAlign: 'left' }}>YOUR PROFILE</h3>
-          <div style={{ padding: '40px 20px', backgroundColor: '#111', borderRadius: '20px', border: '1px solid #ffd700', width: '100%', boxSizing: 'border-box', textAlign: 'center' }}>
-            <div style={{ fontSize: '0.9rem', color: '#aaa', marginBottom: '10px' }}>TOTAL BALANCE</div>
-            <div style={{ fontSize: '3rem', fontWeight: 'bold', color: '#ffd700' }}>{balance} CC</div>
-            <div style={{ marginTop: '20px', fontSize: '0.9rem', color: '#00ccff', display: 'flex', justifyContent: 'center', gap: '15px' }}>
-              <span>LEVEL: {level}</span>
-              <span>|</span>
-              <span>XP: {xp}/{XP_PER_LEVEL}</span>
+        );
+      case 'wallet':
+        return (
+          <div className="wallet-tab">
+            <h3>YOUR PROFILE</h3>
+            <div className="profile-card">
+              <span className="label">TOTAL BALANCE</span>
+              <div className="big-money">{balance} CC</div>
+              <div className="profile-stats">
+                <span>LVL: {level}</span>
+                <span>XP: {xp}/{XP_PER_LEVEL}</span>
+              </div>
+              <div className="xp-bar-bg"><div className="xp-bar-fill" style={{width: `${(xp/XP_PER_LEVEL)*100}%`}}></div></div>
             </div>
-            <div style={{ width: '80%', height: '6px', backgroundColor: '#222', margin: '15px auto 0 auto', borderRadius: '3px' }}>
-              <div style={{ width: `${(xp/XP_PER_LEVEL)*100}%`, height: '100%', backgroundColor: '#00ccff', borderRadius: '3px' }}></div>
-            </div>
+            <button className="logout-btn" onClick={handleLogout}><LogOut size={16}/> LOGOUT SYSTEM</button>
           </div>
-          <button onClick={handleLogout} style={{ width: '100%', marginTop: '40px', padding: '18px', background: '#1a0505', color: '#ff4444', border: '1px solid #ff4444', borderRadius: '12px', fontWeight: 'bold', cursor: 'pointer', boxSizing: 'border-box' }}>LOGOUT SYSTEM</button>
-        </div>
-      )}
+        );
+      default: return null;
+    }
+  };
 
-      {/* --- AŞAĞI MENYU (BOTTOM NAVIGATION) --- */}
-      <div style={{ position: 'fixed', bottom: 0, left: '50%', transform: 'translateX(-50%)', width: '100%', maxWidth: '450px', height: '70px', backgroundColor: '#0a0a0a', display: 'flex', justifyContent: 'space-around', alignItems: 'center', borderTop: '2px solid #222', zIndex: 1000, boxSizing: 'border-box' }}>
-        <div onClick={() => setActiveTab('case')} style={{ textAlign: 'center', color: activeTab === 'case' ? '#ffd700' : '#555', cursor: 'pointer', flex: 1 }}>
-          <div style={{ fontSize: '1.4rem', opacity: activeTab === 'case' ? 1 : 0.6 }}>🔍</div>
-          <div style={{ fontSize: '0.65rem', fontWeight: 'bold', marginTop: '3px' }}>CASE</div>
+  return (
+    <div className="dashboard-container">
+      <header className="game-header">
+        <div className="det-header-info">
+          <h2 className="det-title">DET. {username.toUpperCase()}</h2>
+          <div className="energy-info">
+            <Zap size={14} fill="#00ccff" /> {energy}/10 
+            {energy < 10 && <span className="timer">({Math.floor(timeLeft/60)}:{(timeLeft%60).toString().padStart(2, '0')})</span>}
+          </div>
         </div>
-        <div onClick={() => setActiveTab('shop')} style={{ textAlign: 'center', color: activeTab === 'shop' ? '#ffd700' : '#555', cursor: 'pointer', flex: 1 }}>
-          <div style={{ fontSize: '1.4rem', opacity: activeTab === 'shop' ? 1 : 0.6 }}>🛒</div>
-          <div style={{ fontSize: '0.65rem', fontWeight: 'bold', marginTop: '3px' }}>SHOP</div>
-        </div>
-        <div onClick={() => setActiveTab('leaderboard')} style={{ textAlign: 'center', color: activeTab === 'leaderboard' ? '#ffd700' : '#555', cursor: 'pointer', flex: 1 }}>
-          <div style={{ fontSize: '1.4rem', opacity: activeTab === 'leaderboard' ? 1 : 0.6 }}>🏆</div>
-          <div style={{ fontSize: '0.65rem', fontWeight: 'bold', marginTop: '3px' }}>RANK</div>
-        </div>
-        <div onClick={() => setActiveTab('wallet')} style={{ textAlign: 'center', color: activeTab === 'wallet' ? '#ffd700' : '#555', cursor: 'pointer', flex: 1 }}>
-          <div style={{ fontSize: '1.4rem', opacity: activeTab === 'wallet' ? 1 : 0.6 }}>💰</div>
-          <div style={{ fontSize: '0.65rem', fontWeight: 'bold', marginTop: '3px' }}>WALLET</div>
-        </div>
-      </div>
+        <div className="balance-badge">{balance} CC</div>
+      </header>
 
-      {/* --- REKLAM MODALI --- */}
+      <main className="game-content">
+        {renderTabContent()}
+      </main>
+
+      <nav className="bottom-navbar">
+        <button className={activeTab === 'case' ? 'active' : ''} onClick={() => setActiveTab('case')}>
+          <Briefcase size={22} />
+          <span>Case</span>
+        </button>
+        <button className={activeTab === 'shop' ? 'active' : ''} onClick={() => setActiveTab('shop')}>
+          <ShoppingBag size={22} />
+          <span>Shop</span>
+        </button>
+        <button className={activeTab === 'rank' ? 'active' : ''} onClick={() => setActiveTab('rank')}>
+          <Trophy size={22} />
+          <span>Rank</span>
+        </button>
+        <button className={activeTab === 'wallet' ? 'active' : ''} onClick={() => setActiveTab('wallet')}>
+          <Wallet size={22} />
+          <span>Wallet</span>
+        </button>
+      </nav>
+
+      {/* Ad Modal */}
       {isWatchingAd && (
-        <div style={{ position: 'fixed', inset: 0, backgroundColor: '#000', zIndex: 3000, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: '#fff' }}>
-          <div style={{ fontSize: '4rem', marginBottom: '20px' }}>📺</div>
-          <h2 style={{ color: '#00ccff', letterSpacing: '2px', margin: 0 }}>PLAYING AD...</h2>
-          <p style={{ color: '#888', marginTop: '10px', fontSize: '0.9rem' }}>Please wait to receive your reward.</p>
-          <div style={{ width: '50px', height: '50px', border: '5px solid #222', borderTop: '5px solid #00ccff', borderRadius: '50%', marginTop: '40px', animation: 'spin 1s linear infinite' }}></div>
+        <div className="ad-overlay">
+          <div className="ad-spinner"></div>
+          <h2>PLAYING AD...</h2>
         </div>
       )}
 
-      {/* --- ŞÜBHƏLİ MODALI (ACCUSE EKRANI) --- */}
+      {/* Accuse Modal */}
       {selectedSuspect && (
-        <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0,0.98)', zIndex: 2000, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '30px', boxSizing: 'border-box' }}>
-          <div style={{ width: '220px', height: '220px', borderRadius: '15px', overflow: 'hidden', marginBottom: '15px', border: '2px solid #8b0000' }}>
-            <img src={selectedSuspect.image} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-          </div>
-          <h2 style={{ color: '#8b0000', margin: '0 0 5px 0' }}>{selectedSuspect.name.toUpperCase()}</h2>
-          <p style={{ color: '#ffd700', fontSize: '0.7rem', marginBottom: '15px', textTransform: 'uppercase', letterSpacing: '1px' }}>{selectedSuspect.title}</p>
-          
-          <div style={{ backgroundColor: '#111', padding: '15px', borderRadius: '10px', border: '1px solid #333', marginBottom: '25px', width: '100%', maxWidth: '300px', boxSizing: 'border-box' }}>
-            <span style={{ color: '#8b0000', fontSize: '0.6rem', display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>POSSIBLE MOTIVE:</span>
-            <p style={{ color: '#ccc', fontSize: '0.75rem', margin: 0, fontStyle: 'italic', lineHeight: '1.4' }}>"{selectedSuspect.motive}"</p>
-          </div>
-
-          <div style={{ width: '100%', maxWidth: '280px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
-            <button onClick={() => handleAccuse(selectedSuspect.id)} style={{ padding: '16px', backgroundColor: '#8b0000', color: 'white', border: 'none', borderRadius: '12px', fontWeight: 'bold', cursor: 'pointer', boxSizing: 'border-box' }}>👉 ACCUSE</button>
-            <button onClick={() => setSelectedSuspect(null)} style={{ padding: '12px', background: 'none', border: '1px solid #444', color: '#888', borderRadius: '12px', cursor: 'pointer', boxSizing: 'border-box' }}>GO BACK</button>
+        <div className="accuse-overlay">
+          <div className="accuse-modal">
+            <img src={selectedSuspect.image} alt={selectedSuspect.name} />
+            <h2>{selectedSuspect.name.toUpperCase()}</h2>
+            <p className="suspect-title">{selectedSuspect.title}</p>
+            <div className="motive-box">
+              <small>POSSIBLE MOTIVE:</small>
+              <p>"{selectedSuspect.motive}"</p>
+            </div>
+            <div className="modal-actions">
+              <button className="accuse-now-btn" onClick={() => handleAccuse(selectedSuspect.id)}>👉 ACCUSE</button>
+              <button className="back-btn" onClick={() => setSelectedSuspect(null)}>GO BACK</button>
+            </div>
           </div>
         </div>
       )}

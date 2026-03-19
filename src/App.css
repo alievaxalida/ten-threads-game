@@ -1,184 +1,70 @@
-.counter {
-  font-size: 16px;
-  padding: 5px 10px;
-  border-radius: 5px;
-  color: var(--accent);
-  background: var(--accent-bg);
-  border: 2px solid transparent;
-  transition: border-color 0.3s;
-  margin-bottom: 24px;
+@import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
 
-  &:hover {
-    border-color: var(--accent-border);
-  }
-  &:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-  }
-}
+body { background: #000; margin: 0; font-family: 'Special Elite', cursive; }
 
-.hero {
-  position: relative;
-
-  .base,
-  .framework,
-  .vite {
-    inset-inline: 0;
-    margin: 0 auto;
-  }
-
-  .base {
-    width: 170px;
-    position: relative;
-    z-index: 0;
-  }
-
-  .framework,
-  .vite {
-    position: absolute;
-  }
-
-  .framework {
-    z-index: 1;
-    top: 34px;
-    height: 28px;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(44deg) rotateY(39deg)
-      scale(1.4);
-  }
-
-  .vite {
-    z-index: 0;
-    top: 107px;
-    height: 26px;
-    width: auto;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(40deg) rotateY(39deg)
-      scale(0.8);
-  }
-}
-
-#center {
+.dashboard-container {
+  max-width: 450px;
+  margin: 0 auto;
+  min-height: 100vh;
+  background: #000;
+  color: #fff;
   display: flex;
   flex-direction: column;
-  gap: 25px;
-  place-content: center;
-  place-items: center;
-  flex-grow: 1;
-
-  @media (max-width: 1024px) {
-    padding: 32px 20px 24px;
-    gap: 18px;
-  }
 }
 
-#next-steps {
+/* HEADER */
+.game-header {
+  padding: 20px;
   display: flex;
-  border-top: 1px solid var(--border);
-  text-align: left;
-
-  & > div {
-    flex: 1 1 0;
-    padding: 32px;
-    @media (max-width: 1024px) {
-      padding: 24px 20px;
-    }
-  }
-
-  .icon {
-    margin-bottom: 16px;
-    width: 22px;
-    height: 22px;
-  }
-
-  @media (max-width: 1024px) {
-    flex-direction: column;
-    text-align: center;
-  }
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #222;
 }
+.det-title { color: #8b0000; margin: 0; font-size: 1.1rem; }
+.energy-info { color: #00ccff; font-size: 0.8rem; display: flex; align-items: center; gap: 5px; margin-top: 5px; }
+.balance-badge { color: #ffd700; font-weight: bold; font-size: 1.2rem; }
 
-#docs {
-  border-right: 1px solid var(--border);
+/* MAIN CONTENT */
+.game-content { flex: 1; padding: 20px; padding-bottom: 150px; }
 
-  @media (max-width: 1024px) {
-    border-right: none;
-    border-bottom: 1px solid var(--border);
-  }
-}
+/* CASE TAB */
+.clue-display { background: #111; border-left: 4px solid #8b0000; padding: 15px; border-radius: 8px; margin-bottom: 20px; text-align: center; font-size: 0.9rem; }
+.evidence-log { background: #080808; border: 1px dashed #333; padding: 10px; border-radius: 8px; margin-bottom: 20px; }
+.log-item { color: #aaa; font-size: 0.7rem; border-left: 2px solid #444; padding-left: 8px; margin: 5px 0; }
+.suspects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.suspect-card { background: #111; border-radius: 12px; overflow: hidden; border: 1px solid #222; }
+.suspect-card img { width: 100%; height: 140px; object-fit: cover; }
+.suspect-info { padding: 10px; text-align: center; font-size: 0.8rem; }
+.suspect-card.disabled { opacity: 0.3; }
 
-#next-steps ul {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  gap: 8px;
-  margin: 32px 0 0;
+/* BUTTONS */
+.action-buttons { position: fixed; bottom: 85px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 400px; }
+.search-btn { width: 100%; padding: 18px; background: #8b0000; color: white; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; font-family: 'Special Elite'; }
+.new-case-btn { width: 100%; padding: 18px; background: #ffd700; color: black; border: none; border-radius: 12px; font-weight: bold; font-family: 'Special Elite'; }
 
-  .logo {
-    height: 18px;
-  }
+/* NAVIGATION */
+.bottom-navbar { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 450px; background: #0a0a0a; display: flex; height: 70px; border-top: 2px solid #222; }
+.bottom-navbar button { flex: 1; background: none; border: none; color: #555; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; font-family: 'Special Elite'; }
+.bottom-navbar button.active { color: #ffd700; }
+.bottom-navbar button span { font-size: 0.6rem; font-weight: bold; }
 
-  a {
-    color: var(--text-h);
-    font-size: 16px;
-    border-radius: 6px;
-    background: var(--social-bg);
-    display: flex;
-    padding: 6px 12px;
-    align-items: center;
-    gap: 8px;
-    text-decoration: none;
-    transition: box-shadow 0.3s;
+/* MODALS */
+.accuse-overlay, .ad-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 2000; display: flex; align-items: center; justify-content: center; padding: 20px; }
+.accuse-modal { background: #000; border: 2px solid #8b0000; border-radius: 20px; padding: 20px; width: 100%; max-width: 320px; text-align: center; }
+.accuse-modal img { width: 150px; height: 150px; border-radius: 15px; object-fit: cover; margin-bottom: 10px; }
+.suspect-title { color: #ffd700; font-size: 0.7rem; }
+.motive-box { background: #111; padding: 10px; border-radius: 8px; margin: 15px 0; }
+.modal-actions { display: flex; flex-direction: column; gap: 10px; }
+.accuse-now-btn { background: #8b0000; color: white; padding: 12px; border: none; border-radius: 8px; font-family: 'Special Elite'; }
+.back-btn { background: none; border: 1px solid #444; color: #888; padding: 10px; border-radius: 8px; font-family: 'Special Elite'; }
 
-    &:hover {
-      box-shadow: var(--shadow);
-    }
-    .button-icon {
-      height: 18px;
-      width: 18px;
-    }
-  }
+/* WALLET */
+.profile-card { background: #111; border: 1px solid #ffd700; padding: 30px; border-radius: 15px; text-align: center; }
+.big-money { font-size: 2.5rem; color: #ffd700; margin: 10px 0; }
+.xp-bar-bg { background: #222; height: 8px; border-radius: 4px; margin-top: 15px; overflow: hidden; }
+.xp-bar-fill { background: #00ccff; height: 100%; }
+.logout-btn { width: 100%; margin-top: 20px; padding: 15px; background: #1a0505; color: #ff4444; border: 1px solid #ff4444; border-radius: 8px; font-family: 'Special Elite'; }
 
-  @media (max-width: 1024px) {
-    margin-top: 20px;
-    flex-wrap: wrap;
-    justify-content: center;
-
-    li {
-      flex: 1 1 calc(50% - 8px);
-    }
-
-    a {
-      width: 100%;
-      justify-content: center;
-      box-sizing: border-box;
-    }
-  }
-}
-
-#spacer {
-  height: 88px;
-  border-top: 1px solid var(--border);
-  @media (max-width: 1024px) {
-    height: 48px;
-  }
-}
-
-.ticks {
-  position: relative;
-  width: 100%;
-
-  &::before,
-  &::after {
-    content: '';
-    position: absolute;
-    top: -4.5px;
-    border: 5px solid transparent;
-  }
-
-  &::before {
-    left: 0;
-    border-left-color: var(--border);
-  }
-  &::after {
-    right: 0;
-    border-right-color: var(--border);
-  }
-}
+/* SHOP & RANK */
+.shop-item, .rank-item { background: #111; padding: 15px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border: 1px solid #222; }
+.rank-item.gold { border-color: #ffd700; background: #1a1a1a; }
