@@ -1,116 +1,19 @@
-@import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
-
-body { 
-  margin: 0; 
-  padding: 0; 
-  font-family: 'Special Elite', cursive; 
-  background-color: #050505; /* Ən arxa kənar qara qalsın */
-}
-
-/* 1. ƏSAS ARXA PLAN (Taxta Masa - bg-wood.png) */
-.dashboard-container {
-  max-width: 450px;
-  margin: 0 auto;
-  min-height: 100vh;
-  color: #fff;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  /* Taxta teksturasını bura qoyuruq */
-  background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.7)), url('./assets/bg-wood.png');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  box-shadow: 0 0 30px rgba(0,0,0,0.8);
-}
-
-/* 2. ÜST BAŞLIQ (Mantar Lövhə - cork-board.png) */
-.game-header {
-  padding: 15px 20px;
-  padding-top: max(30px, env(safe-area-inset-top)); 
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  /* Mantar lövhə teksturası + yazılar oxunsun deyə azca tündləşdirici */
-  background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('./assets/cork-board.png');
-  background-size: cover;
-  border-bottom: 3px solid #111;
-  position: sticky; 
-  top: 0; 
-  z-index: 1000;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-}
-.det-title { color: #ffd700; margin: 0; font-size: 1.1rem; text-shadow: 1px 1px 3px #000; }
-.energy-info { color: #00ccff; font-size: 0.8rem; margin-top: 5px; text-shadow: 1px 1px 2px #000; }
-.balance-badge { color: #fff; font-weight: bold; font-size: 1.2rem; text-shadow: 1px 1px 3px #000; }
-
-/* ORTA HİSSƏ */
-.game-content { flex: 1; padding: 15px; padding-bottom: 150px; }
-
-/* 3. İPUCU QUTUSU (Köhnə Kağız - paper-texture.png) */
-.clue-display { 
-  /* Köhnə kağız effekti */
-  background-image: url('./assets/paper-texture.png');
-  background-size: cover;
-  border-left: 5px solid #8b0000; 
-  padding: 15px; 
-  border-radius: 4px; 
-  margin-bottom: 20px; 
-  text-align: center; 
-  color: #111; /* Kağızın üstündə yazı tünd olmalıdır! */
-  font-weight: bold;
-  box-shadow: 2px 4px 8px rgba(0,0,0,0.4);
-}
-
-/* 4. ŞÜBHƏLİ KARTLARI (Dosye - dossier-card.png) */
-.suspects-grid { 
-  display: grid; 
-  grid-template-columns: repeat(2, 1fr); 
-  gap: 15px; 
-}
-.suspect-card { 
-  /* Dosye teksturası */
-  background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.8)), url('./assets/dossier-card.png');
-  background-size: cover;
-  border-radius: 8px; 
-  overflow: hidden; 
-  border: 1px solid #222; 
-  display: flex;
-  flex-direction: column;
-  box-shadow: 2px 4px 8px rgba(0,0,0,0.5);
-}
-.suspect-img { 
-  width: 100%; 
-  height: 140px; 
-  object-fit: cover; 
-  object-position: top;
-  border-bottom: 2px solid #8b0000;
-}
-.suspect-info { padding: 10px; text-align: center; }
-.suspect-info h4 { margin: 0; font-size: 0.85rem; color: #eee; letter-spacing: 1px;}
-
-/* DÜYMƏLƏR */
-.action-buttons { position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 400px; z-index: 50; }
-.search-btn { width: 100%; padding: 16px; background: #8b0000; color: white; border: 2px solid #5a0000; border-radius: 8px; font-weight: bold; font-family: 'Special Elite'; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.6);}
-.logout-btn { width: 100%; padding: 16px; background: #1a0505; color: #ff4444; border: 1px solid #ff4444; border-radius: 8px; font-family: 'Special Elite'; cursor: pointer;}
-
-/* 5. AŞAĞI MENYU (Nav Teksturası - nav-texture.png) */
 .bottom-navbar {
   position: fixed;
-  bottom: 20px;
+  bottom: 15px; /* Bir az daha aşağı endirdik ki, ekranda yer qalsın */
   left: 50%;
   transform: translateX(-50%);
-  width: 90%; 
-  max-width: 400px;
-  height: 75px; /* İkonlar böyüdüyü üçün barı bir az hündürləşdirdik */
-  background: rgba(15, 15, 15, 0.95);
+  width: 95%; 
+  max-width: 420px;
+  height: 85px; /* İkonlar böyüdüyü üçün barı da bir az hündürləşdirdik */
+  background: rgba(10, 10, 10, 0.9);
   backdrop-filter: blur(15px);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 25px;
+  border-radius: 30px;
   display: flex;
-  justify-content: space-evenly;
-  align-items: center; /* Bütün butonları şaquli mərkəzləyir */
-  padding: 0 10px;
+  justify-content: space-around; /* İkonları barın içinə tam yayır */
+  align-items: center;
+  padding: 0; /* Artıq boşluqları sildik */
   z-index: 1000;
 }
 
@@ -119,22 +22,26 @@ body {
   border: none;
   cursor: pointer;
   padding: 0;
+  margin: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100%; /* Butonun bütün hündürlüyü əhatə etməsini təmin edir */
+  flex: 1; /* Hər buton bərabər yer tutur */
+  height: 100%;
 }
 
 .bottom-navbar img {
-  width: 55px; /* Ölçünü 45px-dən 55px-ə qaldırdıq */
-  height: 55px;
+  /* İkonları əhəmiyyətli dərəcədə böyütdük */
+  width: 75px; 
+  height: 75px;
   object-fit: contain;
-  transition: all 0.3s ease;
-  display: block; /* Altındakı gizli boşluqları silir */
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Daha canlı keçid effekti */
+  display: block;
 }
 
-/* Seçili olan ikonun tənzimlənməsi */
+/* Aktiv olan ikonun effekti */
 .bottom-navbar button.active img {
-  filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
-  transform: scale(1.1); /* Yuxarı qalxma (translateY) hissəsini sildik ki, eyni xətdə qalsın */
+  width: 85px; /* Aktiv olanda daha da böyüsün */
+  height: 85px;
+  filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.6));
 }
