@@ -121,13 +121,15 @@ body {
 }
 
 .bottom-navbar img {
-  width: 70px; /* 120px mobil üçün çox böyük ola bilər, 70-80px ideal görünəcək */
-  height: auto;
-  object-fit: contain;
-  transition: transform 0.2s; /* Üzərinə gəldikdə effekt üçün */
+  width: 55px;          /* Telefon üçün ideal ölçü */
+  height: 55px;         /* Kvadrat ikonlardırsa bərabər saxla */
+  object-fit: contain;  /* Şəklin formasını pozmadan sığdırır */
+  transition: all 0.3s ease;
 }
 
+/* Əgər hansısa ikon seçilidirsə, onu bir az böyüdək ki, hiss olunsun */
 .bottom-navbar button.active img {
-  filter: drop-shadow(0 0 8px #ffd700); /* Seçili olan ikona işıq effekti */
-  transform: scale(1.1);
+  width: 65px; 
+  height: 65px;
+  filter: drop-shadow(0 0 5px #ffd700); /* Qızılı parıltı effekti */
 }
