@@ -1,70 +1,115 @@
 @import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
 
-/* Bütün ekranı zorla qara edirik ki, başqa CSS-lər sızmasın */
-body { background-color: #000 !important; margin: 0; padding: 0; font-family: 'Special Elite', cursive; }
+body { 
+  margin: 0; 
+  padding: 0; 
+  font-family: 'Special Elite', cursive; 
+  background-color: #050505; /* Ən arxa kənar qara qalsın */
+}
 
+/* 1. ƏSAS ARXA PLAN (Taxta Masa - bg-wood.png) */
 .dashboard-container {
   max-width: 450px;
   margin: 0 auto;
   min-height: 100vh;
-  background-color: #050505 !important; /* Təmiz qara arxa plan */
-  background-image: none !important; /* Əgər taxta rəsmi sızırsa, bloklayır */
   color: #fff;
   display: flex;
   flex-direction: column;
   position: relative;
+  /* Taxta teksturasını bura qoyuruq */
+  background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.7)), url('./assets/bg-wood.png');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  box-shadow: 0 0 30px rgba(0,0,0,0.8);
 }
 
-/* HEADER */
+/* 2. ÜST BAŞLIQ (Mantar Lövhə - cork-board.png) */
 .game-header {
-  padding: 20px;
-  padding-top: max(20px, env(safe-area-inset-top)); 
+  padding: 15px 20px;
+  padding-top: max(30px, env(safe-area-inset-top)); 
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 2px solid #222;
-  background-color: #0a0a0a !important;
-  background-image: none !important;
-  position: sticky; top: 0; z-index: 1000;
+  /* Mantar lövhə teksturası + yazılar oxunsun deyə azca tündləşdirici */
+  background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('./assets/cork-board.png');
+  background-size: cover;
+  border-bottom: 3px solid #111;
+  position: sticky; 
+  top: 0; 
+  z-index: 1000;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
 }
-.det-title { color: #8b0000; margin: 0; font-size: 1.1rem; }
-.energy-info { color: #00ccff; font-size: 0.8rem; margin-top: 5px; }
-.balance-badge { color: #ffd700; font-weight: bold; font-size: 1.2rem; }
+.det-title { color: #ffd700; margin: 0; font-size: 1.1rem; text-shadow: 1px 1px 3px #000; }
+.energy-info { color: #00ccff; font-size: 0.8rem; margin-top: 5px; text-shadow: 1px 1px 2px #000; }
+.balance-badge { color: #fff; font-weight: bold; font-size: 1.2rem; text-shadow: 1px 1px 3px #000; }
 
-/* MAIN CONTENT */
+/* ORTA HİSSƏ */
 .game-content { flex: 1; padding: 15px; padding-bottom: 150px; }
 
-.clue-display { background: #111; border-left: 4px solid #8b0000; padding: 15px; border-radius: 8px; margin-bottom: 20px; text-align: center; }
+/* 3. İPUCU QUTUSU (Köhnə Kağız - paper-texture.png) */
+.clue-display { 
+  /* Köhnə kağız effekti */
+  background-image: url('./assets/paper-texture.png');
+  background-size: cover;
+  border-left: 5px solid #8b0000; 
+  padding: 15px; 
+  border-radius: 4px; 
+  margin-bottom: 20px; 
+  text-align: center; 
+  color: #111; /* Kağızın üstündə yazı tünd olmalıdır! */
+  font-weight: bold;
+  box-shadow: 2px 4px 8px rgba(0,0,0,0.4);
+}
 
-/* ŞÜBHƏLİLƏR ŞƏBƏKƏSİ (Buranı sərtləşdirdik) */
+/* 4. ŞÜBHƏLİ KARTLARI (Dosye - dossier-card.png) */
 .suspects-grid { 
   display: grid; 
-  grid-template-columns: repeat(2, 1fr); /* 2 sütun */
-  gap: 12px; 
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 15px; 
 }
 .suspect-card { 
-  background: #111; 
-  border-radius: 10px; 
+  /* Dosye teksturası */
+  background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.8)), url('./assets/dossier-card.png');
+  background-size: cover;
+  border-radius: 8px; 
   overflow: hidden; 
-  border: 1px solid #333; 
+  border: 1px solid #222; 
   display: flex;
   flex-direction: column;
+  box-shadow: 2px 4px 8px rgba(0,0,0,0.5);
 }
 .suspect-img { 
-  width: 100% !important; 
-  height: 140px !important; /* Şəkillərin böyüməsinə icazə vermirik! */
-  object-fit: cover !important; 
+  width: 100%; 
+  height: 140px; 
+  object-fit: cover; 
   object-position: top;
+  border-bottom: 2px solid #8b0000;
 }
 .suspect-info { padding: 10px; text-align: center; }
-.suspect-info h4 { margin: 0; font-size: 0.8rem; }
+.suspect-info h4 { margin: 0; font-size: 0.85rem; color: #eee; letter-spacing: 1px;}
 
-/* BUTTONS */
-.action-buttons { position: fixed; bottom: 85px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 400px; z-index: 50; }
-.search-btn { width: 100%; padding: 16px; background: #8b0000; color: white; border: none; border-radius: 12px; font-weight: bold; font-family: 'Special Elite'; cursor: pointer;}
+/* DÜYMƏLƏR */
+.action-buttons { position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 400px; z-index: 50; }
+.search-btn { width: 100%; padding: 16px; background: #8b0000; color: white; border: 2px solid #5a0000; border-radius: 8px; font-weight: bold; font-family: 'Special Elite'; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.6);}
 .logout-btn { width: 100%; padding: 16px; background: #1a0505; color: #ff4444; border: 1px solid #ff4444; border-radius: 8px; font-family: 'Special Elite'; cursor: pointer;}
 
-/* NAVIGATION */
-.bottom-navbar { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 450px; background-color: #0a0a0a !important; background-image: none !important; display: flex; height: 75px; border-top: 2px solid #222; z-index: 100; }
-.bottom-navbar button { flex: 1; background: none; border: none; color: #555; display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: 'Special Elite'; cursor: pointer; }
-.bottom-navbar button.active { color: #ffd700; transform: translateY(-3px); }
+/* 5. AŞAĞI MENYU (Nav Teksturası - nav-texture.png) */
+.bottom-navbar { 
+  position: fixed; 
+  bottom: 0; 
+  left: 50%; 
+  transform: translateX(-50%); 
+  width: 100%; 
+  max-width: 450px; 
+  /* Aşağı menyu üçün tekstura */
+  background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.9)), url('./assets/nav-texture.png');
+  background-size: cover;
+  display: flex; 
+  height: 80px; 
+  border-top: 3px solid #222; 
+  z-index: 100; 
+  box-shadow: 0 -4px 10px rgba(0,0,0,0.6);
+}
+.bottom-navbar button { flex: 1; background: none; border: none; color: #aaa; display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: 'Special Elite'; cursor: pointer; transition: 0.2s;}
+.bottom-navbar button.active { color: #ffd700; transform: translateY(-3px); text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);}
