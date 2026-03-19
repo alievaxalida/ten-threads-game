@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'; // useEffect əlavə olundu
+import React, { useState } from 'react';
 import './StartScreen.css';
 import evidenceBg from './assets/evidence-bg.jpg';
 import mySealImg from './assets/my-seal.png';
@@ -7,35 +7,16 @@ export default function StartScreen({ onStartGame }) {
   const [detectiveName, setDetectiveName] = useState('');
   const [isConfirmed, setIsConfirmed] = useState(false);
 
-  // 1. Telegram-dan istifadəçi adını avtomatik götürmək
-  useEffect(() => {
-    const tg = window.Telegram?.WebApp;
-    if (tg && tg.initDataUnsafe?.user) {
-      // Əgər Telegram-da adı varsa, avtomatik daxil et
-      setDetectiveName(tg.initDataUnsafe.user.first_name || '');
-      
-      // Mini-app-ı tam ekrana yaymaq və rəngləri tənzimləmək üçün
-      tg.expand(); 
-      tg.ready();
-    }
-  }, []);
-
   const confirmAndStartGame = () => {
     if (detectiveName.trim().length > 2) {
       setIsConfirmed(true);
 
-      // 2. VİBRASİYA (Haptic Feedback) - Möhür vurulan an
-      if (window.Telegram?.WebApp?.HapticFeedback) {
-        window.Telegram.WebApp.HapticFeedback.notificationOccurred('success');
-      }
-
-      // Tam olaraq 2.5 saniyə gözləyir
+      // BURA DƏYİŞDİ: Tam olaraq 2.5 saniyə (2500ms) gözləyir
       setTimeout(() => {
         onStartGame(detectiveName);
       }, 2500); 
     } else {
-      // İngiliscə xəbərdarlıq
-      alert("Identification required: Please enter at least 3 characters.");
+      alert("Please add your username (min. 3 character)");
     }
   };
 
@@ -52,7 +33,7 @@ export default function StartScreen({ onStartGame }) {
             <input 
                 type="text" 
                 className={`name-input-v2 ${isConfirmed ? 'confirmed-text' : ''}`}
-                placeholder="IDENTIFY YOURSELF..." 
+                placeholder="USERNAME..." // <-- BURA DƏYİŞDİ ("DETECTIVE NAME..." yerinə)
                 value={detectiveName}
                 onChange={(e) => !isConfirmed && setDetectiveName(e.target.value)}
                 disabled={isConfirmed}
