@@ -109,13 +109,22 @@ function App() {
 
   const handleSearch = () => {
     if (isGameOver || energy <= 0) return;
-    setBalance(prev => prev + 10);
-    if (energy === 10) setLastEnergyUpdate(Date.now());
+    
     setEnergy(prev => prev - 1);
-    const randomClue = killer.clues[Math.floor(Math.random() * killer.clues.length)];
-    const upperClue = randomClue.toUpperCase();
-    setClueMessage(upperClue);
-    if (!clueLog.includes(upperClue)) setClueLog(prev => [upperClue, ...prev]);
+    if (energy === 10) setLastEnergyUpdate(Date.now());
+  
+    const chance = Math.random(); // 0 ilə 1 arası rəqəm
+  
+    if (chance > 0.4) { // 60% ehtimalla ipucu tapılır
+      const randomClue = killer.clues[Math.floor(Math.random() * killer.clues.length)];
+      const upperClue = randomClue.toUpperCase();
+      setClueMessage(`🔎 YENİ İPUCU: ${upperClue}`);
+      if (!clueLog.includes(upperClue)) setClueLog(prev => [upperClue, ...prev]);
+      setBalance(prev => prev + 15); // İpucu tapanda daha çox pul
+    } else {
+      setClueMessage("🚫 Try Again...");
+      setBalance(prev => prev + 5); // Boş çıxanda az pul
+    }
   };
 
   const handleAccuse = (id) => {

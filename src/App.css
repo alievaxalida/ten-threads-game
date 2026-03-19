@@ -123,9 +123,7 @@ body {
 }
 
 .hub-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
+  grid-template-columns: repeat(2, 1fr);
 }
 
 .hub-suspect {
@@ -388,7 +386,14 @@ body {
 }
 
 /* ORTA HİSSƏ */
-.game-content { flex: 1; padding: 15px; padding-bottom: 150px; overflow-y: auto; }
+.game-content {
+  flex: 1;
+  padding: 15px;
+  padding-bottom: 150px; /* Aşağı menyu üçün boşluq */
+  overflow-y: auto;
+  /* Mobil telefonlarda sürətli sürüşdürmə üçün */
+  -webkit-overflow-scrolling: touch; 
+}
 
 /* 3. İPUCU QUTUSU (Köhnə Kağız - paper-texture.png) */
 .clue-display { 
