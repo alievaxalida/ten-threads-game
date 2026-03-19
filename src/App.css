@@ -253,7 +253,6 @@ body {
   height: 100%;
   background: rgba(0, 0, 0, 0.6); /* Banneri biraz tündləşdiririk */
   display: flex;
-  justify-content: space-between;
   align-items: center; /* Bütün elementləri vertikal mərkəzləyirik */
   padding: 0 60px; /* Yanlardan boşluq */
   box-sizing: border-box; 
