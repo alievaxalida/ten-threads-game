@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Briefcase, ShoppingBag, Trophy, Wallet, Zap, LogOut } from 'lucide-react';
 import StartScreen from './StartScreen';
+import './App.css';
 
 // Şəkillərin importu (Sənin mövcud importların)
 import saraImg from './assets/Sara (The Influencer).png';
