@@ -4,14 +4,20 @@ body {
   margin: 0; 
   padding: 0; 
   font-family: 'Special Elite', cursive; 
-  background-color: #050505; /* Ən arxa kənar qara qalsın */
+  background-color: #050505; 
+  /* Taxta fonu BİRBAŞA BODY-yə veririk ki, həmişə bütün ekranı tutsun */
+  background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.7)), url('./assets/bg-wood.png');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
 }
 
 /* 1. ƏSAS ARXA PLAN (Taxta Masa - bg-wood.png) */
 .dashboard-container {
   max-width: 450px;
   margin: 0 auto;
-  mid-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
   color: #fff;
   display: flex;
   flex-direction: column;
@@ -382,22 +388,7 @@ body {
 }
 
 /* ORTA HİSSƏ */
-
-.game-content { 
-  flex: 1; 
-  padding: 15px; 
-  padding-bottom: 150px; 
-}
-
-/* Shop, Rank və Wallet tablarını telefonda Case ilə eyni boyda etmək üçün: */
-.shop-tab, 
-.rank-tab, 
-.wallet-tab {
-  min-height: 1000px; /* Bu rəqəmi çox uzundursa azalda (məs: 800px), qısadırsa artıra bilərsən */
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-}
+.game-content { flex: 1; padding: 15px; padding-bottom: 150px; overflow-y: auto; }
 
 /* 3. İPUCU QUTUSU (Köhnə Kağız - paper-texture.png) */
 .clue-display { 
