@@ -1,42 +1,53 @@
 @import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
 
-/* Bütün kompüter ekranını tündləşdirib, oyunu mərkəzə gətiririk */
-body { 
-  background: #050505; 
+html, body { 
+  background-color: #050505; /* Kompyuterdə boş qalan kənarlar tünd boz olacaq */
   margin: 0; 
+  padding: 0;
+  width: 100%;
+  min-height: 100vh;
   font-family: 'Special Elite', cursive; 
-  display: flex;
-  justify-content: center; /* Oyunu ekranın tam ortasına qoyur */
-}
+ }
 
 #root {
-  width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: center; /* Budur! Bütün oyunu mərkəzə çəkən sehrli kod */
+  width: 100%;
+  min-height: 100vh;
 }
 
-/* OYUNUN ÖZ EKRANI (Mobil ölçüdə sabitlənib) */
 .dashboard-container {
   width: 100%;
-  max-width: 450px; /* Ekran nə qədər böyük olsa da, bu ölçünü keçməyəcək */
+  max-width: 450px; /* Telefon ekranının genişliyi */
   min-height: 100vh;
   background: #000;
   color: #fff;
   display: flex;
   flex-direction: column;
   position: relative;
-  box-shadow: 0 0 30px rgba(139, 0, 0, 0.2); /* Kənarlarına qırmızı detektiv effekti */
+  margin: 0 auto; /* Əlavə sığorta: Hər vəziyyətdə ortada saxla */
+  box-shadow: 0 0 50px rgba(139, 0, 0, 0.15); /* Qıraqlara xəfif qırmızı detektiv kölgəsi */
   overflow-x: hidden;
 }
 
+/* Bundan aşağısı əvvəlki kimi qalsın (HEADER, MAIN CONTENT və s.) ... */
+
+/* ÜST BAŞLIQ */
 /* ÜST BAŞLIQ */
 .game-header {
   padding: 20px;
+  /* Ən vacib sətir: Telefonun üst kəsiyini (notch) hesablayır və boşluq buraxır */
+  padding-top: max(30px, env(safe-area-inset-top)); 
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid #222;
   background: #0a0a0a;
+  
+  /* Səhifəni sürüşdürəndə yuxarıda sabit qalması üçün: */
+  position: sticky; 
+  top: 0;
+  z-index: 1000;
 }
 .det-title { color: #8b0000; margin: 0; font-size: 1.1rem; }
 .energy-info { color: #00ccff; font-size: 0.8rem; display: flex; align-items: center; gap: 5px; margin-top: 5px; }
