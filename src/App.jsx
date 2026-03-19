@@ -205,7 +205,7 @@ function App() {
           </div>
         )}
 
-        {activeTab === 'rank' && (
+{activeTab === 'rank' && (
   <div className="case-tab rank-tab">
     <h3 style={{textShadow: '1px 1px 2px #000', marginBottom: '20px'}}>
       TOP DETECTIVES

@@ -255,7 +255,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center; /* Bütün elementləri vertikal mərkəzləyirik */
-  padding: 0 30px; /* Yanlardan boşluq */
+  padding: 0 60px; /* Yanlardan boşluq */
   box-sizing: border-box; 
 }
 
