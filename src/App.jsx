@@ -3,13 +3,11 @@ import { LogOut } from 'lucide-react';
 import StartScreen from './StartScreen';
 import './App.css';
 
-// Yeni Header Şəkillərinin importu
+// Şəkillərin importu
 import bannerImg from './assets/banner.png';
 import badgeImg from './assets/badge.png';
 import coffeeImg from './assets/coffee.png';
 import ccImg from './assets/cc.png';
-
-// Şübhəli Şəkillərinin importu
 import saraImg from './assets/Sara (The Influencer).png';
 import alexImg from './assets/Alex (The Hacker).png';
 import millerImg from './assets/Dr. Miller (The Surgeon).png';
@@ -20,8 +18,6 @@ import kateImg from './assets/Kate (The Journalist).png';
 import samImg from './assets/Sam (The Driver).png';
 import markImg from './assets/Mark (The Actor).png'; 
 import generalImg from './assets/The General (The Veteran).png';
-
-// İkonların importu
 import caseIcon from './assets/case.png';
 import shopIcon from './assets/shop.png';
 import rankIcon from './assets/rank.png';
@@ -109,21 +105,18 @@ function App() {
 
   const handleSearch = () => {
     if (isGameOver || energy <= 0) return;
-    
     setEnergy(prev => prev - 1);
     if (energy === 10) setLastEnergyUpdate(Date.now());
-  
-    const chance = Math.random(); // 0 ilə 1 arası rəqəm
-  
-    if (chance > 0.4) { // 60% ehtimalla ipucu tapılır
+    const chance = Math.random();
+    if (chance > 0.4) {
       const randomClue = killer.clues[Math.floor(Math.random() * killer.clues.length)];
       const upperClue = randomClue.toUpperCase();
       setClueMessage(`🔎 YENİ İPUCU: ${upperClue}`);
       if (!clueLog.includes(upperClue)) setClueLog(prev => [upperClue, ...prev]);
-      setBalance(prev => prev + 15); // İpucu tapanda daha çox pul
+      setBalance(prev => prev + 15);
     } else {
       setClueMessage("🚫 Try Again...");
-      setBalance(prev => prev + 5); // Boş çıxanda az pul
+      setBalance(prev => prev + 5);
     }
   };
 
@@ -146,44 +139,25 @@ function App() {
 
   return (
     <div className="dashboard-container detective-hub">
-      
-      {/* SƏNİN YENİ VİZUAL HEADER-in */}
       <header className="detective-header" style={{ backgroundImage: `url(${bannerImg})` }}>
         <div className="header-overlay">
           <div className="profile-group">
-            <div className="badge-wrapper">
-              <img src={badgeImg} alt="Badge" className="badge-img" />
-            </div>
+            <div className="badge-wrapper"><img src={badgeImg} alt="Badge" className="badge-img" /></div>
             <div className="text-group">
               <span className="rank">DET.</span>
               <h1 className="name">{username.toUpperCase()}</h1>
             </div>
           </div>
-
           <div className="stats-group">
             <div className="stat-item">
-              <div className="icon-frame">
-                <img src={coffeeImg} alt="Energy" className="stat-icon" />
-              </div>
+              <div className="icon-frame"><img src={coffeeImg} alt="Energy" className="stat-icon" /></div>
               <div className="progress-info">
-                <div className="bar-bg">
-                  <div className="bar-fill energy-fill" style={{ width: `${(energy / 10) * 100}%` }}></div>
-                </div>
-                <span className="stat-value">
-                  {energy}/10 
-                  {energy < 10 && (
-                    <span style={{marginLeft: '5px', fontSize: '11px', color: '#ccc', fontWeight: 'normal'}}>
-                      ({Math.floor(timeLeft/60)}:{(timeLeft%60).toString().padStart(2, '0')})
-                    </span>
-                  )}
-                </span>
+                <div className="bar-bg"><div className="bar-fill energy-fill" style={{ width: `${(energy / 10) * 100}%` }}></div></div>
+                <span className="stat-value">{energy}/10</span>
               </div>
             </div>
-
             <div className="stat-item">
-              <div className="icon-frame">
-                <img src={ccImg} alt="Currency" className="stat-icon" />
-              </div>
+              <div className="icon-frame"><img src={ccImg} alt="Currency" className="stat-icon" /></div>
               <span className="stat-value gold-text">{balance} CC</span>
             </div>
           </div>
@@ -191,129 +165,109 @@ function App() {
       </header>
 
       <main className="game-content hub-main">
-        {/* TAB 1: CASE */}
         {activeTab === 'case' && (
           <div className="case-tab">
             <div className="clue-display"><p>{clueMessage}</p></div>
-            
             {clueLog.length > 0 && !isGameOver && (
               <div style={{background: 'rgba(0,0,0,0.6)', padding: '10px', borderRadius: '5px', marginBottom: '15px', borderLeft: '3px solid #8b0000'}}>
                 <small style={{color: '#888'}}>EVIDENCE FILE:</small>
                 {clueLog.map((log, i) => <div key={i} style={{color: '#ddd', fontSize: '0.8rem', marginTop: '5px'}}>- {log}</div>)}
               </div>
             )}
-
-            {/* SƏNİN YENİ ŞÜBHƏLİ DİZAYNIN (hub-suspect) */}
             <div className="suspects-grid hub-grid">
               {suspectsData.map(s => (
                 <div key={s.id} className="hub-suspect suspect-card" style={{opacity: isGameOver ? 0.4 : 1}} onClick={() => !isGameOver && setSelectedSuspect(s)}>
-                  <div className="hub-silhouette">
-                    <img src={s.image} alt={s.name} className="suspect-img" style={{height: '100%'}} />
-                  </div>
+                  <div className="hub-silhouette"><img src={s.image} alt={s.name} className="suspect-img" style={{height: '100%'}} /></div>
                   <div className="suspect-info">
-                     <span className="hub-suspect-tag">{s.title}</span>
-                     <h4>{s.name.toUpperCase()}</h4>
+                    <span className="hub-suspect-tag">{s.title}</span>
+                    <h4>{s.name.toUpperCase()}</h4>
                   </div>
                 </div>
               ))}
             </div>
-            
             <div className="action-buttons hub-actions">
               {!isGameOver ? (
-                energy > 0 ? (
-                  <button className="hub-btn hub-btn-primary search-btn" onClick={handleSearch}>
-                     🔍 SEARCH
-                     <span className="hub-btn-meta">-1 ENERGY</span>
-                  </button>
-                ) : (
-                  <button className="hub-btn hub-btn-secondary" disabled>WAIT FOR ENERGY</button>
-                )
-              ) : (
-                <button className="hub-btn hub-btn-primary" onClick={initGame}>🔄 NEW CASE</button>
-              )}
+                <button className="hub-btn hub-btn-primary search-btn" onClick={handleSearch} disabled={energy <= 0}>
+                  🔍 SEARCH <span className="hub-btn-meta">-1 ENERGY</span>
+                </button>
+              ) : ( <button className="hub-btn hub-btn-primary" onClick={initGame}>🔄 NEW CASE</button> )}
             </div>
           </div>
         )}
 
-        {/* TAB 2: SHOP */}
         {activeTab === 'shop' && (
-          <div className="shop-tab">
-            <h3 style={{textShadow: '1px 1px 2px #000'}}>DETECTIVE SHOP</h3>
+          <div className="case-tab shop-tab">
+            <h3 style={{textShadow: '1px 1px 2px #000', marginBottom: '20px'}}>DETECTIVE SHOP</h3>
             <div style={{background: 'rgba(0,0,0,0.6)', padding: '15px', borderRadius: '8px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', border: '1px solid #333'}}>
-              <div>
-                <strong>⚡ FULL ENERGY</strong>
-                <p style={{fontSize: '0.8rem', color: '#aaa', margin: '5px 0 0 0'}}>Refill 10 energy.</p>
-              </div>
+              <div><strong>⚡ FULL ENERGY</strong><p style={{fontSize: '0.8rem', color: '#aaa'}}>Refill 10 energy.</p></div>
               <button onClick={() => { if(balance >= 200) { setBalance(b => b - 200); setEnergy(10); } else { alert("Not enough CC!"); } }} style={{background: '#ffd700', border: 'none', padding: '10px', borderRadius: '5px', fontWeight: 'bold'}}>200 CC</button>
             </div>
           </div>
         )}
 
-        {/* TAB 3: RANK */}
-        {activeTab === 'rank' && (
-          <div className="rank-tab">
-             <h3 style={{textShadow: '1px 1px 2px #000'}}>TOP DETECTIVES</h3>
-             {[1,2,3,4,5].map(i => (
-                <div key={i} style={{background: i===1 ? 'rgba(255,215,0,0.2)' : 'rgba(0,0,0,0.6)', padding: '15px', borderRadius: '8px', marginBottom: '8px', display: 'flex', justifyContent: 'space-between', border: i===1 ? '1px solid #ffd700' : '1px solid #333'}}>
-                  <span style={{color: i===1 ? '#ffd700' : '#fff'}}>{i}. {i === 1 ? username.toUpperCase() : `AGENT_${i*912}`}</span>
-                  <span style={{color: '#00ccff'}}>LVL {6-i}</span>
-                </div>
-             ))}
-          </div>
-        )}
-        
-        {/* TAB 4: WALLET */}
+{activeTab === 'rank' && (
+  <div className="case-tab rank-tab">
+    <h3 style={{textShadow: '1px 1px 2px #000', marginBottom: '20px'}}>
+      TOP DETECTIVES
+    </h3>
+
+    {[1,2,3,4,5].map(i => (
+      <div
+        key={i}
+        style={{
+          background: i===1 ? 'rgba(255,215,0,0.2)' : 'rgba(0,0,0,0.6)',
+          padding: '15px',
+          borderRadius: '8px',
+          marginBottom: '8px',
+          display: 'flex',
+          justifyContent: 'space-between',
+          border: i===1 ? '1px solid #ffd700' : '1px solid #333'
+        }}
+      >
+        <span style={{color: i===1 ? '#ffd700' : '#fff'}}>
+          {i}. {i === 1 ? username.toUpperCase() : `AGENT_${i*912}`}
+        </span>
+
+        <span style={{color: '#00ccff'}}>
+          LVL {6-i}
+        </span>
+      </div>
+    ))}
+  </div>
+)}
+
         {activeTab === 'wallet' && (
-          <div className="wallet-tab">
-             <h3 style={{textShadow: '1px 1px 2px #000'}}>YOUR PROFILE</h3>
-             <div style={{background: 'rgba(0,0,0,0.6)', padding: '20px', borderRadius: '8px', textAlign: 'center', border: '1px solid #ffd700'}}>
-                <div style={{color: '#aaa', fontSize: '0.8rem'}}>TOTAL BALANCE</div>
-                <div style={{fontSize: '2.5rem', color: '#ffd700', fontWeight: 'bold', margin: '10px 0'}}>{balance} CC</div>
-                <div style={{color: '#00ccff', display: 'flex', justifyContent: 'space-around'}}>
-                  <span>LVL: {level}</span>
-                  <span>XP: {xp}/{XP_PER_LEVEL}</span>
-                </div>
-             </div>
-             <button className="hub-btn hub-btn-secondary" onClick={handleLogout} style={{width: '100%', marginTop: '20px', color: '#ff4444', borderColor: '#ff4444'}}><LogOut size={16}/> LOGOUT</button>
+          <div className="case-tab wallet-tab">
+            <h3 style={{textShadow: '1px 1px 2px #000', marginBottom: '20px'}}>YOUR PROFILE</h3>
+            <div style={{background: 'rgba(0,0,0,0.6)', padding: '20px', borderRadius: '8px', textAlign: 'center', border: '1px solid #ffd700'}}>
+              <div style={{color: '#aaa', fontSize: '0.8rem'}}>TOTAL BALANCE</div>
+              <div style={{fontSize: '2.5rem', color: '#ffd700', fontWeight: 'bold', margin: '10px 0'}}>{balance} CC</div>
+              <div style={{color: '#00ccff', display: 'flex', justifyContent: 'space-around'}}><span>LVL: {level}</span><span>XP: {xp}/300</span></div>
+            </div>
+            <button className="hub-btn hub-btn-secondary" onClick={handleLogout} style={{width: '100%', marginTop: '20px', color: '#ff4444', borderColor: '#ff4444'}}><LogOut size={16}/> LOGOUT</button>
           </div>
         )}
       </main>
 
-      {/* SƏNİN YENİ AŞAĞI MENYUN (İkonlarla) */}
       <nav className="bottom-navbar">
-        <button className={activeTab === 'case' ? 'active' : ''} onClick={() => setActiveTab('case')}>
-          <img src={caseIcon} alt="Case" />
-        </button>
-        <button className={activeTab === 'shop' ? 'active' : ''} onClick={() => setActiveTab('shop')}>
-          <img src={shopIcon} alt="Shop" />
-        </button>
-        <button className={activeTab === 'rank' ? 'active' : ''} onClick={() => setActiveTab('rank')}>
-          <img src={rankIcon} alt="Rank" />
-        </button>
-        <button className={activeTab === 'wallet' ? 'active' : ''} onClick={() => setActiveTab('wallet')}>
-          <img src={walletIcon} alt="Wallet" />
-        </button>
+        <button className={activeTab === 'case' ? 'active' : ''} onClick={() => setActiveTab('case')}><img src={caseIcon} alt="Case" /></button>
+        <button className={activeTab === 'shop' ? 'active' : ''} onClick={() => setActiveTab('shop')}><img src={shopIcon} alt="Shop" /></button>
+        <button className={activeTab === 'rank' ? 'active' : ''} onClick={() => setActiveTab('rank')}><img src={rankIcon} alt="Rank" /></button>
+        <button className={activeTab === 'wallet' ? 'active' : ''} onClick={() => setActiveTab('wallet')}><img src={walletIcon} alt="Wallet" /></button>
       </nav>
 
-      {/* ŞÜBHƏLİNİ GÜNAHLANDIRMA MODALI */}
       {selectedSuspect && (
         <div style={{position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.9)', zIndex: 2000, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px'}}>
           <div style={{background: '#111', border: '2px solid #8b0000', borderRadius: '15px', padding: '20px', width: '100%', maxWidth: '320px', textAlign: 'center'}}>
-            <img src={selectedSuspect.image} alt={selectedSuspect.name} style={{width: '150px', height: '150px', objectFit: 'cover', borderRadius: '10px', marginBottom: '10px'}} />
-            <h2 style={{margin: '0 0 5px 0', color: '#fff'}}>{selectedSuspect.name.toUpperCase()}</h2>
-            <p style={{color: '#ffd700', fontSize: '0.8rem', margin: '0 0 15px 0'}}>{selectedSuspect.title}</p>
-            <div style={{background: '#000', padding: '10px', borderRadius: '5px', marginBottom: '20px'}}>
-              <small style={{color: '#8b0000'}}>POSSIBLE MOTIVE:</small>
-              <p style={{color: '#ccc', fontStyle: 'italic', margin: '5px 0 0 0'}}>"{selectedSuspect.motive}"</p>
-            </div>
-            <div style={{display: 'flex', flexDirection: 'column', gap: '10px'}}>
-              <button onClick={() => handleAccuse(selectedSuspect.id)} style={{background: '#8b0000', color: '#fff', border: 'none', padding: '15px', borderRadius: '8px', fontWeight: 'bold', cursor: 'pointer', fontFamily: 'Special Elite'}}>👉 ACCUSE</button>
-              <button onClick={() => setSelectedSuspect(null)} style={{background: 'none', color: '#888', border: '1px solid #444', padding: '10px', borderRadius: '8px', cursor: 'pointer', fontFamily: 'Special Elite'}}>GO BACK</button>
-            </div>
+            <img src={selectedSuspect.image} alt={selectedSuspect.name} style={{width: '150px', height: '150px', objectFit: 'cover', borderRadius: '10px'}} />
+            <h2 style={{color: '#fff'}}>{selectedSuspect.name.toUpperCase()}</h2>
+            <p style={{color: '#ffd700'}}>{selectedSuspect.title}</p>
+            <div style={{background: '#000', padding: '10px', borderRadius: '5px', marginBottom: '20px'}}><p style={{color: '#ccc'}}>"{selectedSuspect.motive}"</p></div>
+            <button onClick={() => handleAccuse(selectedSuspect.id)} style={{background: '#8b0000', color: '#fff', border: 'none', padding: '15px', borderRadius: '8px', width: '100%', fontWeight: 'bold'}}>👉 ACCUSE</button>
+            <button onClick={() => setSelectedSuspect(null)} style={{background: 'none', color: '#888', border: 'none', marginTop: '10px'}}>GO BACK</button>
           </div>
         </div>
       )}
-
     </div>
   );
 }
