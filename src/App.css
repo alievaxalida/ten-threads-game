@@ -144,3 +144,22 @@ body {
   filter: grayscale(0%) opacity(1) drop-shadow(0 0 10px rgba(255, 215, 0, 0.7));
   transform: scale(2.8); 
 }
+
+/* Yalnız mobil telefonlar üçün (maksimum 600px eni olan ekranlar) */
+@media screen and (max-width: 600px) {
+  .bottom-navbar {
+    height: 60px; /* Barı bir az daha incəldək */
+    bottom: 10px;
+    width: 95%;
+  }
+
+  .bottom-navbar img {
+    /* Telefonda scale-i bir az da artıraq və kənarlarını itiləşdirək */
+    transform: scale(3.2); 
+    image-rendering: -webkit-optimize-contrast; /* Şəkli daha iti (sharp) göstərir */
+  }
+
+  .bottom-navbar button.active img {
+    transform: scale(3.5);
+  }
+}
