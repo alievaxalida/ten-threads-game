@@ -254,7 +254,7 @@ body {
   background: rgba(0, 0, 0, 0.6); /* Banneri biraz tündləşdiririk */
   display: flex;
   align-items: center; /* Bütün elementləri vertikal mərkəzləyirik */
-  padding: 0 40px; /* Yanlardan boşluq */
+  padding: 0 35px; /* Yanlardan boşluq */
   box-sizing: border-box; 
   gap: 30px;
 }
