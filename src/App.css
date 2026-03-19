@@ -231,7 +231,8 @@ body {
 /* 2. ÜST BAŞLIQ (Mantar Lövhə - cork-board.png) */
 /* 2. YENİ ÜST BAŞLIQ (VİZUAL HEADER) */
 .detective-header {
-  min-height: 80px;
+  /* Hündürlüyü azaltdıq, banner çox böyük olmasın */
+  height: 65px; 
   background-size: cover;
   background-position: center;
   position: sticky; 
@@ -239,93 +240,110 @@ body {
   z-index: 1000;
   border-bottom: 2px solid #3d362d;
   box-shadow: 0 5px 15px rgba(0,0,0,0.8);
-  /* Sənin mobil safe-area kodunu bura uyğunlaşdırdıq */
+  /* Mobil telefonlarda status barı üçün boşluq */
   padding-top: env(safe-area-inset-top); 
 }
 
 .header-overlay {
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.6); 
+  background: rgba(0, 0, 0, 0.6); /* Banneri biraz tündləşdiririk */
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding: 10px 15px;
+  align-items: center; /* Bütün elementləri vertikal mərkəzləyirik */
+  padding: 0 15px; /* Yanlardan boşluq */
   box-sizing: border-box; 
 }
 
 /* Profil dizaynı */
 .profile-group {
   display: flex;
-  align-items: center;
+  align-items: center; /* Nişan və yazını mərkəzləyirik */
   gap: 10px;
+  height: 100%; /* Header hündürlüyünü doldurur */
+}
+
+.badge-wrapper {
+  display: flex;
+  align-items: center; /* Nişanı dairənin içində mərkəzləyirik */
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%; /* Nişanı dairəvi etdik */
+  border: 1px solid #c5a47e;
+  overflow: hidden; /* Şəkil dairənin kənarına çıxmasın */
+  background: rgba(0,0,0,0.4);
 }
 
 .badge-img {
-  width: 45px;
-  height: 45px;
-  border-radius: 8px;
-  object-fit: cover;
-  border: 1px solid #c5a47e;
-  box-shadow: 0 0 10px rgba(0,0,0,0.6);
+  width: 90%; /* Nişan dairənin içində biraz kiçik qalsın */
+  height: 90%;
+  object-fit: contain; /* Şəkil kəsilməsin */
 }
 
 .text-group {
   display: flex;
-  flex-direction: column;
+  flex-direction: column; /* "DET." yuxarıda, "KHALIDA" aşağıda */
+  justify-content: center; /* Yazıları vertikal mərkəzləyirik */
 }
 
 .rank { 
   color: #888; 
   font-size: 11px; 
   font-weight: bold;
+  line-height: 1; /* Yazı arası boşluğu azaltdıq */
 }
 
 .name { 
   color: #c5a47e; 
   margin: 0; 
-  font-size: 18px; 
+  font-size: 16px; /* Adı biraz kiçiltdik səliqəli olsun */
   letter-spacing: 1px;
+  line-height: 1.2;
 }
 
 /* Statistika Kapsulları */
 .stats-group {
   display: flex;
-  gap: 8px;
+  gap: 8px; /* Kapsullar arası boşluq */
+  height: 100%;
+  align-items: center; /* Kapsulları mərkəzləyirik */
 }
 
 .stat-item {
   background: rgba(20, 20, 20, 0.9);
   border: 1px solid #4a4135;
-  border-radius: 40px;
+  border-radius: 40px; /* Kapsul forması */
   padding: 3px 8px 3px 3px;
   display: flex;
-  align-items: center;
+  align-items: center; /* İkon və barı mərkəzləyirik */
   gap: 6px;
   box-shadow: inset 0 0 10px rgba(0,0,0,0.8);
+  height: 38px; /* Kapsul hündürlüyü */
 }
 
 .icon-frame {
   width: 30px;
   height: 30px;
-  border-radius: 50%;
+  border-radius: 50%; /* İkonu dairəvi etdik */
   overflow: hidden;
   border: 1px solid #c5a47e;
   display: flex;
   justify-content: center;
   align-items: center;
+  background: rgba(0,0,0,0.5);
 }
 
 .stat-icon {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  width: 70%; /* Kofe/Sikkə dairənin içində səliqəli qalsın */
+  height: 70%;
+  object-fit: contain; /* Şəkil kəsilməsin */
 }
 
 .progress-info {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: center; /* Yazı və barı mərkəzləyirik */
   padding-right: 2px;
 }
 
@@ -335,7 +353,7 @@ body {
   height: 6px;
   background: #1a1a1a;
   border-radius: 4px;
-  margin-bottom: 2px;
+  margin-bottom: 3px;
   border: 1px solid #333;
   overflow: hidden;
 }
@@ -344,8 +362,7 @@ body {
   height: 100%;
   background: linear-gradient(90deg, #5c3c1e, #c5a47e);
   border-radius: 4px;
-  /* Animasiya: Enerji azalanda bar yavaş-yavaş geri çəkiləcək */
-  transition: width 0.4s ease-out; 
+  transition: width 0.4s ease-out; /* Enerji azalanda animasiya */
 }
 
 .stat-value {
@@ -353,12 +370,15 @@ body {
   font-weight: bold;
   font-size: 11px;
   text-align: right;
-  white-space: nowrap;
+  white-space: nowrap; /* Yazı yan-yana qalsın */
+  line-height: 1;
 }
 
 .gold-text { 
   color: #c5a47e; 
   font-size: 13px;
+  line-height: 1;
+  padding-right: 5px;
 }
 
 /* ORTA HİSSƏ */
