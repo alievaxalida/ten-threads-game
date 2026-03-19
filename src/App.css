@@ -97,12 +97,12 @@ body {
 /* 5. AŞAĞI MENYU (Nav Teksturası - nav-texture.png) */
 .bottom-navbar {
   position: fixed;
-  bottom: 15px;
+  bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
   width: 95%; 
-  max-width: 400px;
-  height: 70px; /* Barın standart hündürlüyü */
+  max-width: 420px;
+  height: 80px; /* Barı yenidən əvvəlki kimi qalın və dolğun etdik */
   background: rgba(15, 15, 15, 0.95);
   backdrop-filter: blur(15px);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -127,30 +127,29 @@ body {
 }
 
 .bottom-navbar img {
-  /* Şəkillər artıq kəsildiyi üçün 35-40px tam ideal və aydın görünəcək */
-  width: 35px; 
-  height: 35px;
+  /* Bayaqkı bəyəndiyin böyüklüyü geri qaytardıq! (Şəkillər kəsildiyi üçün tam aydın olacaq) */
+  width: 60px; 
+  height: 60px;
   object-fit: contain;
   transition: all 0.3s ease;
   filter: grayscale(100%) opacity(0.5);
-  transform: none; /* BÜTÜN SÜNİ BÖYÜTMƏLƏRİ LƏĞV ETDİK */
 }
 
 .bottom-navbar button.active img {
   filter: grayscale(0%) opacity(1) drop-shadow(0 0 10px rgba(255, 215, 0, 0.7));
-  /* Aktiv olanda sadəcə çox yüngülcə böyüyüb yuxarı qalxsın */
+  /* Aktiv olanda irəli atılır və parlayır */
   transform: scale(1.15) translateY(-3px); 
 }
 
-/* Mobil üçün tənzimləmələr */
+/* Mobil telefonlar üçün xüsusi tənzimləmə */
 @media screen and (max-width: 600px) {
   .bottom-navbar {
-    height: 65px;
-    bottom: 10px;
+    height: 75px;
+    bottom: 15px;
   }
   .bottom-navbar img {
-    /* Mobildə də eyni aydın ölçüdə qalsın */
-    width: 32px;
-    height: 32px;
+    /* Telefonda da kifayət qədər böyük və toxunula bilən olacaq */
+    width: 52px; 
+    height: 52px;
   }
 }
