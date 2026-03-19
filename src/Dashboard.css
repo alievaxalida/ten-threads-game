@@ -1,0 +1,77 @@
+.dashboard-wrapper {
+  width: 100vw;
+  height: 100vh;
+  /* Arxa plan şəkli bura əlavə olundu */
+  background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.7)), url('./assets/bg-wood.png');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  color: white;
+  font-family: 'Special Elite', cursive;
+  overflow: hidden; /* Bütün səhifənin sürüşməsini bağlayırıq */
+}
+
+.status-bar {
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  background: rgba(20,20,20,0.9);
+}
+
+.det-name {
+  color: #8b0000;
+  font-weight: bold;
+}
+
+.main-display {
+  flex: 1;
+  display: flex;
+  flex-direction: column; /* İçindəkiləri alt-alta düzür */
+  padding: 20px;
+  text-align: center;
+  overflow-y: auto; /* Məzmun çox olanda yalnız bura sürüşəcək (scroll) */
+}
+
+.tab-content {
+  font-size: 20px;
+  animation: fadeIn 0.3s ease;
+}
+
+/* NAVIGATION BAR */
+.bottom-nav {
+  display: flex;
+  justify-content: space-around;
+  background: #111;
+  padding: 10px 0;
+  border-top: 2px solid #8b0000;
+  padding-bottom: 25px; /* Telefonların alt boşluğu üçün */
+}
+
+.bottom-nav button {
+  background: none;
+  border: none;
+  color: #666;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.bottom-nav button.active {
+  color: #8b0000;
+  transform: translateY(-5px);
+}
+
+.bottom-nav button span {
+  font-size: 10px;
+  text-transform: uppercase;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
