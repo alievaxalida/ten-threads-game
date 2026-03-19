@@ -226,19 +226,19 @@ function App() {
 
       <nav className="bottom-navbar">
         <button className={activeTab === 'case' ? 'active' : ''} onClick={() => setActiveTab('case')}>
-          <img src={caseIcon} alt="Case" style={{ width: '60px', height: '60px', objectFit: 'contain' }} />
+          <img src={caseIcon} alt="Case" style={{ width: '25px', height: '25px', objectFit: 'contain' }} />
         </button>
         
         <button className={activeTab === 'shop' ? 'active' : ''} onClick={() => setActiveTab('shop')}>
-          <img src={shopIcon} alt="Shop" style={{ width: '60px', height: '60px', objectFit: 'contain' }} />
+          <img src={shopIcon} alt="Shop" style={{ width: '25px', height: '25px', objectFit: 'contain' }} />
         </button>
         
         <button className={activeTab === 'rank' ? 'active' : ''} onClick={() => setActiveTab('rank')}>
-          <img src={rankIcon} alt="Rank" style={{ width: '60px', height: 'px', objectFit: 'contain' }} />
+          <img src={rankIcon} alt="Rank" style={{ width: '25px', height: '25px', objectFit: 'contain' }} />
         </button>
         
         <button className={activeTab === 'wallet' ? 'active' : ''} onClick={() => setActiveTab('wallet')}>
-          <img src={walletIcon} alt="Wallet" style={{ width: '61px', height: '60px', objectFit: 'contain' }} />
+          <img src={walletIcon} alt="Wallet" style={{ width: '25px', height: '25px', objectFit: 'contain' }} />
         </button>
       </nav>
 
