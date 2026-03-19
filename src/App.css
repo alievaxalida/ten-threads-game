@@ -427,13 +427,13 @@ body {
   flex-direction: column;
   box-shadow: 2px 4px 8px rgba(0,0,0,0.5);
 }
-.suspect-img { 
-  width: 100%; 
-  height: 140px; 
-  object-fit: cover; 
-  object-position: top;
-  border-bottom: 2px solid #8b0000;
+.suspect-img {
+  width: 100%;
+  height: 100%; /* Konteyneri tam doldursun */
+  object-fit: cover;
+  display: block;
 }
+
 .suspect-info { padding: 10px; text-align: center; }
 .suspect-info h4 { margin: 0; font-size: 0.85rem; color: #eee; letter-spacing: 1px;}
 
@@ -475,19 +475,17 @@ body {
 }
 
 .bottom-navbar img {
-  /* Bayaqkı bəyəndiyin böyüklüyü geri qaytardıq! (Şəkillər kəsildiyi üçün tam aydın olacaq) */
-  width: 120px; 
-  height: 120px;
+  width: 45px; /* Daha idarəolunan ölçü */
+  height: 45px;
   object-fit: contain;
-  transform: scale(2.8);
-  transition: all 0.3s ease;
+  transform: none; /* Scale-i silirik */
   filter: grayscale(100%) opacity(0.5);
+  transition: all 0.3s ease;
 }
 
 .bottom-navbar button.active img {
-  filter: grayscale(0%) opacity(1) drop-shadow(0 0 10px rgba(255, 215, 0, 0.7));
-  /* Aktiv olanda irəli atılır və parlayır */
-  transform: scale(3.1) translateY(-2px); 
+  filter: grayscale(0%) opacity(1);
+  transform: translateY(-5px) scale(1.2); /* Aktiv olanda azca böyüsün */
 }
 
 /* Mobil telefonlar üçün xüsusi tənzimləmə */
