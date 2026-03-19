@@ -1,9 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { LogOut } from 'lucide-react';
+import { Zap, LogOut } from 'lucide-react';
 import StartScreen from './StartScreen';
 import './App.css';
 
-// Şəkillərin importu
+// Yeni Header Şəkillərinin importu (assets qovluğundan)
+import bannerImg from './assets/banner.jpg';
+import badgeImg from './assets/badge.jpg';
+import coffeeImg from './assets/coffee.jpg';
+import ccImg from './assets/cc.jpg';
+
+// Şübhəli Şəkillərinin importu
 import saraImg from './assets/Sara (The Influencer).png';
 import alexImg from './assets/Alex (The Hacker).png';
 import millerImg from './assets/Dr. Miller (The Surgeon).png';
@@ -14,6 +20,7 @@ import kateImg from './assets/Kate (The Journalist).png';
 import samImg from './assets/Sam (The Driver).png';
 import markImg from './assets/Mark (The Actor).png'; 
 import generalImg from './assets/The General (The Veteran).png';
+
 // İkonların importu
 import caseIcon from './assets/case.png';
 import shopIcon from './assets/shop.png';
@@ -126,76 +133,162 @@ function App() {
     setSelectedSuspect(null);
   };
 
-  const handleInvitePartner = async () => {
-    const referralCode = username.trim().toUpperCase().replace(/\s+/g, '-');
-    const text = `Join my Detective Hub. Referral: ${referralCode}`;
-    try {
-      await navigator.clipboard.writeText(text);
-      alert('Referral copied to clipboard.');
-    } catch {
-      alert(text);
-    }
-  };
-
   if (!username) {
     return <StartScreen onStartGame={(name) => setUsername(name)} />;
   }
 
   return (
-    <div className="dashboard-container detective-hub">
-      <header className="hub-topbar">
-        <div className="hub-topbar-left">
-          <div className="hub-kicker">DAY</div>
-          <div className="hub-day">1</div>
-        </div>
+    <div className="dashboard-container">
+      
+      {/* YENİ VİZUAL HEADER HİSSƏSİ */}
+      <header className="detective-header" style={{ backgroundImage: `url(${bannerImg})` }}>
+        <div className="header-overlay">
+          
+          {/* Sol tərəf: Nişan və Ad */}
+          <div className="profile-group">
+            <div className="badge-wrapper">
+              <img src={badgeImg} alt="Badge" className="badge-img" />
+            </div>
+            <div className="text-group">
+              <span className="rank">DET.</span>
+              <h1 className="name">{username.toUpperCase()}</h1>
+            </div>
+          </div>
 
-        <div className="hub-topbar-center">
-          <div className="hub-title">DETECTIVE HUB</div>
-          <div className="hub-subtitle">{clueMessage}</div>
-        </div>
+          {/* Sağ tərəf: Enerji və Pul */}
+          <div className="stats-group">
+            
+            {/* Enerji (Kofe) */}
+            <div className="stat-item">
+              <div className="icon-frame">
+                <img src={coffeeImg} alt="Energy" className="stat-icon" />
+              </div>
+              <div className="progress-info">
+                <div className="bar-bg">
+                  {/* Dinamik enerji barı */}
+                  <div className="bar-fill energy-fill" style={{ width: `${(energy / 10) * 100}%` }}></div>
+                </div>
+                <span className="stat-value">
+                  {energy}/10 
+                  {energy < 10 && (
+                    <span style={{marginLeft: '5px', fontSize: '11px', color: '#ccc', fontWeight: 'normal'}}>
+                      ({Math.floor(timeLeft/60)}:{(timeLeft%60).toString().padStart(2, '0')})
+                    </span>
+                  )}
+                </span>
+              </div>
+            </div>
 
-        <div className="hub-topbar-right">
-          <div className="hub-kicker">CLUECOIN</div>
-          <div className="hub-balance">{balance}</div>
-          <button className="hub-logout" onClick={handleLogout} aria-label="Logout">
-            <LogOut size={16} />
-          </button>
+            {/* Pul (CC) */}
+            <div className="stat-item">
+              <div className="icon-frame">
+                <img src={ccImg} alt="Currency" className="stat-icon" />
+              </div>
+              <span className="stat-value gold-text">{balance} CC</span>
+            </div>
+
+          </div>
         </div>
       </header>
 
-      <main className="hub-main">
-        <div className="hub-grid" role="grid" aria-label="Suspects">
-          {suspectsData.slice(0, 9).map((s, idx) => (
-            <button
-              key={s.id}
-              type="button"
-              className="hub-suspect"
-              onClick={() => setSelectedSuspect(s)}
-              aria-label={`Suspect ${idx + 1}`}
-            >
-              <div className="hub-silhouette" aria-hidden="true" />
-              <div className="hub-suspect-tag">SUSPECT {idx + 1}</div>
-            </button>
-          ))}
-        </div>
+      <main className="game-content">
+        {/* TAB 1: CASE */}
+        {activeTab === 'case' && (
+          <div className="case-tab">
+            <div className="clue-display"><p>{clueMessage}</p></div>
+            
+            {/* Yığılan İpucları Siyahısı */}
+            {clueLog.length > 0 && !isGameOver && (
+              <div style={{background: 'rgba(0,0,0,0.6)', padding: '10px', borderRadius: '5px', marginBottom: '15px', borderLeft: '3px solid #8b0000'}}>
+                <small style={{color: '#888'}}>EVIDENCE FILE:</small>
+                {clueLog.map((log, i) => <div key={i} style={{color: '#ddd', fontSize: '0.8rem', marginTop: '5px'}}>- {log}</div>)}
+              </div>
+            )}
+
+            <div className="suspects-grid">
+              {suspectsData.map(s => (
+                <div key={s.id} className="suspect-card" style={{opacity: isGameOver ? 0.4 : 1}} onClick={() => !isGameOver && setSelectedSuspect(s)}>
+                  <img src={s.image} alt={s.name} className="suspect-img" />
+                  <div className="suspect-info"><h4>{s.name.toUpperCase()}</h4></div>
+                </div>
+              ))}
+            </div>
+            
+            <div className="action-buttons">
+              {!isGameOver ? (
+                energy > 0 ? (
+                  <button className="search-btn" onClick={handleSearch}>🔍 SEARCH EVIDENCE (-1⚡)</button>
+                ) : (
+                  <button className="search-btn" disabled style={{background: '#333', color: '#888', border: 'none'}}>WAIT FOR ENERGY</button>
+                )
+              ) : (
+                <button className="search-btn" onClick={initGame} style={{background: '#ffd700', color: '#000'}}>🔄 NEW CASE</button>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* TAB 2: SHOP */}
+        {activeTab === 'shop' && (
+          <div className="shop-tab">
+            <h3 style={{textShadow: '1px 1px 2px #000'}}>DETECTIVE SHOP</h3>
+            <div style={{background: 'rgba(0,0,0,0.6)', padding: '15px', borderRadius: '8px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', border: '1px solid #333'}}>
+              <div>
+                <strong>⚡ FULL ENERGY</strong>
+                <p style={{fontSize: '0.8rem', color: '#aaa', margin: '5px 0 0 0'}}>Refill 10 energy.</p>
+              </div>
+              <button onClick={() => { if(balance >= 200) { setBalance(b => b - 200); setEnergy(10); } else { alert("Not enough CC!"); } }} style={{background: '#ffd700', border: 'none', padding: '10px', borderRadius: '5px', fontWeight: 'bold'}}>200 CC</button>
+            </div>
+          </div>
+        )}
+
+        {/* TAB 3: RANK */}
+        {activeTab === 'rank' && (
+          <div className="rank-tab">
+             <h3 style={{textShadow: '1px 1px 2px #000'}}>TOP DETECTIVES</h3>
+             {[1,2,3,4,5].map(i => (
+                <div key={i} style={{background: i===1 ? 'rgba(255,215,0,0.2)' : 'rgba(0,0,0,0.6)', padding: '15px', borderRadius: '8px', marginBottom: '8px', display: 'flex', justifyContent: 'space-between', border: i===1 ? '1px solid #ffd700' : '1px solid #333'}}>
+                  <span style={{color: i===1 ? '#ffd700' : '#fff'}}>{i}. {i === 1 ? username.toUpperCase() : `AGENT_${i*912}`}</span>
+                  <span style={{color: '#00ccff'}}>LVL {6-i}</span>
+                </div>
+             ))}
+          </div>
+        )}
+        
+        {/* TAB 4: WALLET */}
+        {activeTab === 'wallet' && (
+          <div className="wallet-tab">
+             <h3 style={{textShadow: '1px 1px 2px #000'}}>YOUR PROFILE</h3>
+             <div style={{background: 'rgba(0,0,0,0.6)', padding: '20px', borderRadius: '8px', textAlign: 'center', border: '1px solid #ffd700'}}>
+                <div style={{color: '#aaa', fontSize: '0.8rem'}}>TOTAL BALANCE</div>
+                <div style={{fontSize: '2.5rem', color: '#ffd700', fontWeight: 'bold', margin: '10px 0'}}>{balance} CC</div>
+                <div style={{color: '#00ccff', display: 'flex', justifyContent: 'space-around'}}>
+                  <span>LVL: {level}</span>
+                  <span>XP: {xp}/{XP_PER_LEVEL}</span>
+                </div>
+             </div>
+             <button className="logout-btn" onClick={handleLogout} style={{marginTop: '20px'}}><LogOut size={16}/> LOGOUT SYSTEM</button>
+          </div>
+        )}
       </main>
 
-      <footer className="hub-actions" aria-label="Actions">
-        <button
-          type="button"
-          className="hub-btn hub-btn-primary"
-          onClick={handleSearch}
-          disabled={isGameOver || energy <= 0}
-        >
-          SEARCH FOR CLUES
-          <span className="hub-btn-meta">
-            -1 ⚡ • {energy}/10
-          </span>
+      <nav className="bottom-navbar">
+        <button className={activeTab === 'case' ? 'active' : ''} onClick={() => setActiveTab('case')}>
+          <img src={caseIcon} alt="Case" style={{ width: '25px', height: '25px', objectFit: 'contain' }} />
         </button>
-        <button type="button" className="hub-btn hub-btn-secondary" onClick={handleInvitePartner}>
-          INVITE PARTNER (REFERRAL)
+        
+        <button className={activeTab === 'shop' ? 'active' : ''} onClick={() => setActiveTab('shop')}>
+          <img src={shopIcon} alt="Shop" style={{ width: '25px', height: '25px', objectFit: 'contain' }} />
         </button>
-      </footer>
+        
+        <button className={activeTab === 'rank' ? 'active' : ''} onClick={() => setActiveTab('rank')}>
+          <img src={rankIcon} alt="Rank" style={{ width: '25px', height: '25px', objectFit: 'contain' }} />
+        </button>
+        
+        <button className={activeTab === 'wallet' ? 'active' : ''} onClick={() => setActiveTab('wallet')}>
+          <img src={walletIcon} alt="Wallet" style={{ width: '25px', height: '25px', objectFit: 'contain' }} />
+        </button>
+      </nav>
 
       {/* ŞÜBHƏLİNİ GÜNAHLANDIRMA MODALI */}
       {selectedSuspect && (
