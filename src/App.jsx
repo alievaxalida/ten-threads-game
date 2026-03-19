@@ -4,10 +4,10 @@ import StartScreen from './StartScreen';
 import './App.css';
 
 // Yeni Header Şəkillərinin importu (assets qovluğundan)
-import bannerImg from './assets/banner.jpg';
-import badgeImg from './assets/badge.jpg';
-import coffeeImg from './assets/coffee.jpg';
-import ccImg from './assets/cc.jpg';
+import bannerImg from './assets/banner.png';
+import badgeImg from './assets/badge.png';
+import coffeeImg from './assets/coffee.png';
+import ccImg from './assets/cc.png';
 
 // Şübhəli Şəkillərinin importu
 import saraImg from './assets/Sara (The Influencer).png';
