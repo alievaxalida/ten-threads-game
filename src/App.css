@@ -97,26 +97,21 @@ body {
 /* 5. AŞAĞI MENYU (Nav Teksturası - nav-texture.png) */
 .bottom-navbar {
   position: fixed;
-  bottom: 20px; /* Altdan bir az boşluq qoysaq daha müasir görünər */
+  bottom: 20px;
   left: 50%;
-  transform: translateX(-50%); /* Barı ekranın tam ortasına gətirir */
-  
-  /* Barın eni və hündürlüyü */
+  transform: translateX(-50%);
   width: 90%; 
-  max-width: 400px; /* Kompüterdə çox uzanmaması üçün limit */
-  height: 65px; /* Daha incə bir bar */
-  
-  background: rgba(20, 20, 20, 0.9);
+  max-width: 400px;
+  height: 75px; /* İkonlar böyüdüyü üçün barı bir az hündürləşdirdik */
+  background: rgba(15, 15, 15, 0.95);
   backdrop-filter: blur(15px);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 20px; /* Kənarlarını yumşaq edək */
-  
+  border-radius: 25px;
   display: flex;
-  justify-content: space-evenly; /* İkonlar arasındakı məsafəni sıxlaşdırır */
-  align-items: center;
+  justify-content: space-evenly;
+  align-items: center; /* Bütün butonları şaquli mərkəzləyir */
   padding: 0 10px;
   z-index: 1000;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
 .bottom-navbar button {
@@ -127,20 +122,19 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s ease;
+  height: 100%; /* Butonun bütün hündürlüyü əhatə etməsini təmin edir */
 }
 
 .bottom-navbar img {
-  /* İkonların ölçüsünü bir az daha böyütdük */
-  width: 45px; 
-  height: 45px;
+  width: 55px; /* Ölçünü 45px-dən 55px-ə qaldırdıq */
+  height: 55px;
   object-fit: contain;
-  filter: grayscale(100%) opacity(0.5); /* Seçili olmayanda rəngsiz və solğun */
   transition: all 0.3s ease;
+  display: block; /* Altındakı gizli boşluqları silir */
 }
 
-/* Aktiv ikonun görünüşü */
+/* Seçili olan ikonun tənzimlənməsi */
 .bottom-navbar button.active img {
-  filter: grayscale(0%) opacity(1); /* Rənglənir və parlaqlaşır */
-  transform: translateY(-5px) scale(1.1); /* Bir az yuxarı qalxır */
+  filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
+  transform: scale(1.1); /* Yuxarı qalxma (translateY) hissəsini sildik ki, eyni xətdə qalsın */
 }
