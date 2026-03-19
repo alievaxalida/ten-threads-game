@@ -348,7 +348,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center; /* Yazı və barı mərkəzləyirik */
-  padding-right: 2px;
+  
 }
 
 /* Enerji Barı */
@@ -376,6 +376,7 @@ body {
   text-align: right;
   white-space: nowrap; /* Yazı yan-yana qalsın */
   line-height: 1;
+  text-align: center;
 }
 
 .gold-text { 
