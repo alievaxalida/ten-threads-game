@@ -95,21 +95,39 @@ body {
 .logout-btn { width: 100%; padding: 16px; background: #1a0505; color: #ff4444; border: 1px solid #ff4444; border-radius: 8px; font-family: 'Special Elite'; cursor: pointer;}
 
 /* 5. AŞAĞI MENYU (Nav Teksturası - nav-texture.png) */
-.bottom-navbar { 
-  position: fixed; 
-  bottom: 0; 
-  left: 50%; 
-  transform: translateX(-50%); 
-  width: 100%; 
-  max-width: 450px; 
-  /* Aşağı menyu üçün tekstura */
-  background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.9)), url('./assets/nav-texture.png');
-  background-size: cover;
-  display: flex; 
-  height: 80px; 
-  border-top: 3px solid #222; 
-  z-index: 100; 
-  box-shadow: 0 -4px 10px rgba(0,0,0,0.6);
+.bottom-navbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100px; /* İkonlar böyük olduğu üçün hündürlüyü bir az artırdıq */
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: space-around; /* İkonları bərabər məsafədə bölür */
+  align-items: center; /* Şaquli olaraq mərkəzləyir */
+  padding: 10px 0;
+  z-index: 1000;
 }
-.bottom-navbar button { flex: 1; background: none; border: none; color: #aaa; display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: 'Special Elite'; cursor: pointer; transition: 0.2s;}
-.bottom-navbar button.active { color: #ffd700; transform: translateY(-3px); text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);}
+
+.bottom-navbar button {
+  background: none;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex: 1; /* Hər butona bərabər yer ayırır */
+}
+
+.bottom-navbar img {
+  width: 70px; /* 120px mobil üçün çox böyük ola bilər, 70-80px ideal görünəcək */
+  height: auto;
+  object-fit: contain;
+  transition: transform 0.2s; /* Üzərinə gəldikdə effekt üçün */
+}
+
+.bottom-navbar button.active img {
+  filter: drop-shadow(0 0 8px #ffd700); /* Seçili olan ikona işıq effekti */
+  transform: scale(1.1);
+}
