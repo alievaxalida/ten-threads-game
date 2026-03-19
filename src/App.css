@@ -97,48 +97,50 @@ body {
 /* 5. AŞAĞI MENYU (Nav Teksturası - nav-texture.png) */
 .bottom-navbar {
   position: fixed;
-  bottom: 15px; /* Bir az daha aşağı endirdik ki, ekranda yer qalsın */
+  bottom: 10px;
   left: 50%;
   transform: translateX(-50%);
   width: 95%; 
   max-width: 420px;
-  height: 85px; /* İkonlar böyüdüyü üçün barı da bir az hündürləşdirdik */
-  background: rgba(10, 10, 10, 0.9);
+  height: 70px; /* Barı bir az incəltdik */
+  background: rgba(15, 15, 15, 0.95);
   backdrop-filter: blur(15px);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 30px;
+  border-radius: 20px;
   display: flex;
-  justify-content: space-around; /* İkonları barın içinə tam yayır */
+  justify-content: space-around;
   align-items: center;
-  padding: 0; /* Artıq boşluqları sildik */
+  padding: 0;
   z-index: 1000;
+  overflow: visible; /* İkonlar kənara çıxa bilsin */
 }
 
 .bottom-navbar button {
   background: none;
   border: none;
-  cursor: pointer;
   padding: 0;
-  margin: 0;
+  flex: 1;
   display: flex;
-  align-items: center;
   justify-content: center;
-  flex: 1; /* Hər buton bərabər yer tutur */
+  align-items: center;
   height: 100%;
 }
 
 .bottom-navbar img {
-  /* İkonları əhəmiyyətli dərəcədə böyütdük */
-  width: 75px; 
-  height: 75px;
+  /* Şəklin öz ölçüsü */
+  width: 120px; 
+  height: 120px;
   object-fit: contain;
-  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Daha canlı keçid effekti */
-  display: block;
+  
+  /* ƏSAS HİLLƏ: Şəkli daxilən 2.5 dəfə böyüdürük ki, boşluqlar itsin */
+  transform: scale(2.5); 
+  
+  transition: all 0.3s ease;
+  filter: grayscale(100%) opacity(0.5);
 }
 
-/* Aktiv olan ikonun effekti */
 .bottom-navbar button.active img {
-  width: 85px; /* Aktiv olanda daha da böyüsün */
-  height: 85px;
-  filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.6));
+  /* Aktiv olanda həm rənglənir, həm də bir az daha böyüyür */
+  filter: grayscale(0%) opacity(1) drop-shadow(0 0 10px rgba(255, 215, 0, 0.7));
+  transform: scale(2.8); 
 }
