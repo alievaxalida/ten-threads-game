@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Briefcase, ShoppingBag, Trophy, Wallet, Zap, LogOut } from 'lucide-react';
+import { Zap, LogOut } from 'lucide-react';
 import StartScreen from './StartScreen';
 import './App.css';
 
@@ -14,6 +14,11 @@ import kateImg from './assets/Kate (The Journalist).png';
 import samImg from './assets/Sam (The Driver).png';
 import markImg from './assets/Mark (The Actor).png'; 
 import generalImg from './assets/The General (The Veteran).png';
+// İkonların importu
+import caseIcon from './assets/case.png';
+import shopIcon from './assets/shop.png';
+import rankIcon from './assets/rank.png';
+import walletIcon from './assets/wallet.png';
 
 const suspectsData = [
   { id: 1, name: "Sara", title: "The Influencer", image: saraImg, motive: "The victim was about to expose her fake lifestyle.", clues: ["A faint scent of expensive French perfume.", "A loose silk thread from a designer scarf.", "A ring light was found near the body."] },
@@ -220,10 +225,21 @@ function App() {
       </main>
 
       <nav className="bottom-navbar">
-        <button className={activeTab === 'case' ? 'active' : ''} onClick={() => setActiveTab('case')}><Briefcase size={22} /><span>Case</span></button>
-        <button className={activeTab === 'shop' ? 'active' : ''} onClick={() => setActiveTab('shop')}><ShoppingBag size={22} /><span>Shop</span></button>
-        <button className={activeTab === 'rank' ? 'active' : ''} onClick={() => setActiveTab('rank')}><Trophy size={22} /><span>Rank</span></button>
-        <button className={activeTab === 'wallet' ? 'active' : ''} onClick={() => setActiveTab('wallet')}><Wallet size={22} /><span>Wallet</span></button>
+        <button className={activeTab === 'case' ? 'active' : ''} onClick={() => setActiveTab('case')}>
+          <img src={caseIcon} alt="Case" style={{ width: '28px', height: '28px', objectFit: 'contain' }} />
+        </button>
+        
+        <button className={activeTab === 'shop' ? 'active' : ''} onClick={() => setActiveTab('shop')}>
+          <img src={shopIcon} alt="Shop" style={{ width: '28px', height: '28px', objectFit: 'contain' }} />
+        </button>
+        
+        <button className={activeTab === 'rank' ? 'active' : ''} onClick={() => setActiveTab('rank')}>
+          <img src={rankIcon} alt="Rank" style={{ width: '28px', height: '28px', objectFit: 'contain' }} />
+        </button>
+        
+        <button className={activeTab === 'wallet' ? 'active' : ''} onClick={() => setActiveTab('wallet')}>
+          <img src={walletIcon} alt="Wallet" style={{ width: '28px', height: '28px', objectFit: 'contain' }} />
+        </button>
       </nav>
 
       {/* ŞÜBHƏLİNİ GÜNAHLANDIRMA MODALI */}
