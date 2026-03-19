@@ -1,110 +1,122 @@
 @import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
 
-html, body { 
-  background-color: #050505; /* Kompyuterdə boş qalan kənarlar tünd boz olacaq */
+/* ÜMUMİ FON - Tünd Taxta Masa */
+body { 
+  background: url('./assets/bg-wood.jpg') no-repeat center center fixed;
+  background-size: cover;
   margin: 0; 
-  padding: 0;
-  width: 100%;
-  min-height: 100vh;
   font-family: 'Special Elite', cursive; 
- }
-
-#root {
   display: flex;
-  justify-content: center; /* Budur! Bütün oyunu mərkəzə çəkən sehrli kod */
-  width: 100%;
-  min-height: 100vh;
+  justify-content: center;
 }
 
+/* OYUN KONTEYNERİ */
 .dashboard-container {
   width: 100%;
-  max-width: 450px; /* Telefon ekranının genişliyi */
+  max-width: 450px;
   min-height: 100vh;
-  background: #000;
+  /* Masanın üzərindəki kölgə effekti */
+  background: rgba(0, 0, 0, 0.4); 
   color: #fff;
   display: flex;
   flex-direction: column;
   position: relative;
-  margin: 0 auto; /* Əlavə sığorta: Hər vəziyyətdə ortada saxla */
-  box-shadow: 0 0 50px rgba(139, 0, 0, 0.15); /* Qıraqlara xəfif qırmızı detektiv kölgəsi */
-  overflow-x: hidden;
+  box-shadow: inset 0 0 100px rgba(0,0,0,0.8);
 }
 
-/* Bundan aşağısı əvvəlki kimi qalsın (HEADER, MAIN CONTENT və s.) ... */
-
-/* ÜST BAŞLIQ */
-/* ÜST BAŞLIQ */
+/* ÜST BAŞLIQ - Metal və ya Dəri tekstura */
 .game-header {
   padding: 20px;
-  /* Ən vacib sətir: Telefonun üst kəsiyini (notch) hesablayır və boşluq buraxır */
-  padding-top: max(30px, env(safe-area-inset-top)); 
+  padding-top: max(40px, env(safe-area-inset-top));
+  background: url('./assets/nav-texture.jpg') center;
+  background-size: cover;
+  border-bottom: 3px solid #3d2b1f;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #222;
-  background: #0a0a0a;
-  
-  /* Səhifəni sürüşdürəndə yuxarıda sabit qalması üçün: */
-  position: sticky; 
+  position: sticky;
   top: 0;
   z-index: 1000;
 }
-.det-title { color: #8b0000; margin: 0; font-size: 1.1rem; }
-.energy-info { color: #00ccff; font-size: 0.8rem; display: flex; align-items: center; gap: 5px; margin-top: 5px; }
-.balance-badge { color: #ffd700; font-weight: bold; font-size: 1.2rem; }
 
-/* ORTA HİSSƏ */
-.game-content { flex: 1; padding: 20px; padding-bottom: 120px; }
+.det-title { color: #ffd700; text-shadow: 2px 2px 4px #000; margin: 0; font-size: 1.1rem; }
 
-/* CASE TAB (Şübhəlilər siyahısı) */
-.clue-display { background: #111; border-left: 4px solid #8b0000; padding: 15px; border-radius: 8px; margin-bottom: 20px; text-align: center; font-size: 0.9rem; }
-.evidence-log { background: #080808; border: 1px dashed #333; padding: 10px; border-radius: 8px; margin-bottom: 20px; }
-.log-item { color: #aaa; font-size: 0.7rem; border-left: 2px solid #444; padding-left: 8px; margin: 5px 0; }
-
-/* ŞÜBHƏLİLƏRİ YAN-YANA DÜZƏN KOD (Sənin problem burda idi) */
-.suspects-grid { 
-  display: grid; 
-  grid-template-columns: 1fr 1fr; /* 2 sütun edir */
-  gap: 12px; 
+/* ŞÜBHƏLİ KARTLARI - Saralmış Köhnə Sənəd */
+.suspect-card { 
+  background: url('./assets/paper-texture.jpg') center;
+  background-size: cover;
+  border-radius: 5px; 
+  overflow: hidden; 
+  border: 1px solid #8b4513;
+  box-shadow: 5px 5px 15px rgba(0,0,0,0.5);
+  transform: rotate(-1deg); /* Masaya atılmış sənəd kimi xəfif əyri */
+  transition: 0.3s;
 }
-.suspect-card { background: #111; border-radius: 12px; overflow: hidden; border: 1px solid #222; cursor: pointer;}
-.suspect-card img { width: 100%; height: 140px; object-fit: cover; object-position: top; }
-.suspect-info { padding: 10px; text-align: center; font-size: 0.8rem; }
-.suspect-card.disabled { opacity: 0.3; pointer-events: none; }
 
-/* DÜYMƏLƏR */
-.action-buttons { position: fixed; bottom: 85px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 410px; z-index: 50;}
-.search-btn { width: 100%; padding: 18px; background: #8b0000; color: white; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; font-family: 'Special Elite'; box-shadow: 0 4px 10px rgba(0,0,0,0.5);}
-.new-case-btn { width: 100%; padding: 18px; background: #ffd700; color: black; border: none; border-radius: 12px; font-weight: bold; font-family: 'Special Elite'; cursor: pointer;}
-.out-of-energy { display: flex; flex-direction: column; gap: 10px; }
-.disabled-btn { width: 100%; padding: 14px; background: #222; color: #888; border: none; border-radius: 12px; font-family: 'Special Elite';}
-.ad-btn { width: 100%; padding: 16px; background: #00ccff; color: black; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; font-family: 'Special Elite';}
+.suspect-card:nth-child(even) { transform: rotate(1.5deg); }
 
-/* AŞAĞI MENYU */
-.bottom-navbar { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 450px; background: #0a0a0a; display: flex; height: 70px; border-top: 2px solid #222; z-index: 100;}
-.bottom-navbar button { flex: 1; background: none; border: none; color: #555; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; font-family: 'Special Elite'; cursor: pointer; transition: 0.2s;}
-.bottom-navbar button.active { color: #ffd700; transform: translateY(-3px);}
-.bottom-navbar button span { font-size: 0.65rem; font-weight: bold; }
+.suspect-info { 
+  padding: 10px; 
+  text-align: center; 
+  color: #1a1a1a; /* Saralmış kağız üzərində tünd yazı */
+  font-weight: bold;
+  font-size: 0.8rem; 
+}
 
-/* MODALLAR (Rəngli pop-uplar) */
-.accuse-overlay, .ad-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 2000; display: flex; align-items: center; justify-content: center; padding: 20px; }
-.accuse-modal { background: #000; border: 2px solid #8b0000; border-radius: 20px; padding: 20px; width: 100%; max-width: 320px; text-align: center; }
-.accuse-modal img { width: 150px; height: 150px; border-radius: 15px; object-fit: cover; margin-bottom: 10px; border: 1px solid #333;}
-.suspect-title { color: #ffd700; font-size: 0.75rem; letter-spacing: 1px; margin-bottom: 15px;}
-.motive-box { background: #111; padding: 15px; border-radius: 8px; margin: 15px 0; border: 1px solid #333;}
-.motive-box p { font-style: italic; color: #ccc; margin-top: 5px;}
-.modal-actions { display: flex; flex-direction: column; gap: 10px; }
-.accuse-now-btn { background: #8b0000; color: white; padding: 16px; border: none; border-radius: 8px; font-family: 'Special Elite'; font-weight: bold; cursor: pointer;}
-.back-btn { background: none; border: 1px solid #444; color: #888; padding: 12px; border-radius: 8px; font-family: 'Special Elite'; cursor: pointer;}
+/* İPUCLARI LÖVHƏSİ - Mantar Lövhə */
+.clue-display { 
+  background: url('./assets/cork-board.jpg') center;
+  background-size: cover;
+  border: 8px solid #3d2b1f; /* Taxta çərçivə */
+  padding: 15px; 
+  border-radius: 4px; 
+  margin-bottom: 20px; 
+  text-align: center; 
+  color: #fff;
+  text-shadow: 1px 1px 3px #000;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+}
 
-/* WALLET & SHOP & RANK */
-.profile-card { background: #111; border: 1px solid #ffd700; padding: 30px; border-radius: 15px; text-align: center; }
-.label { color: #aaa; font-size: 0.8rem; }
-.big-money { font-size: 3rem; color: #ffd700; margin: 10px 0; font-weight: bold;}
-.profile-stats { display: flex; justify-content: space-around; color: #00ccff; margin-top: 15px;}
-.xp-bar-bg { background: #222; height: 8px; border-radius: 4px; margin-top: 15px; overflow: hidden; }
-.xp-bar-fill { background: #00ccff; height: 100%; }
-.logout-btn { width: 100%; margin-top: 30px; padding: 18px; background: #1a0505; color: #ff4444; border: 1px solid #ff4444; border-radius: 8px; font-family: 'Special Elite'; font-weight: bold; cursor: pointer;}
-.shop-item, .rank-item { background: #111; padding: 15px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border: 1px solid #222; }
-.shop-item button { background: #ffd700; border: none; padding: 10px 15px; border-radius: 5px; font-weight: bold; cursor: pointer; }
-.rank-item.gold { border-color: #ffd700; background: #1a1a1a; font-weight: bold;}
+/* AŞAĞI NAVİQASİYA - Ağır Metal Panel */
+.bottom-navbar { 
+  position: fixed; 
+  bottom: 0; 
+  left: 50%; 
+  transform: translateX(-50%); 
+  width: 100%; 
+  max-width: 450px; 
+  background: url('./assets/nav-texture.jpg') bottom;
+  background-size: cover;
+  display: flex; 
+  height: 75px; 
+  border-top: 4px solid #1a1a1a;
+  z-index: 100;
+}
+
+.bottom-navbar button { 
+  flex: 1; 
+  background: none; 
+  border: none; 
+  color: #888; 
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+  justify-content: center; 
+  transition: 0.2s;
+}
+
+.bottom-navbar button.active { 
+  color: #ffd700; 
+  text-shadow: 0 0 10px rgba(255,215,0,0.5);
+  transform: scale(1.1);
+}
+
+/* DÜYMƏLƏR - Detektiv Möhürü Rəngində */
+.search-btn { 
+  background: #4A0404; /* Tünd qan rəngi */
+  color: #EADDCA; 
+  border: 2px solid #222;
+  box-shadow: 3px 3px 0px #000;
+  font-family: 'Special Elite';
+  font-weight: bold;
+}

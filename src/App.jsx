@@ -14,6 +14,10 @@ import kateImg from './assets/Kate (The Journalist).png';
 import samImg from './assets/Sam (The Driver).png';
 import markImg from './assets/Mark (The Actor).png'; 
 import generalImg from './assets/The General (The Veteran).png';
+import bgWood from './assets/bg-wood.jpg';
+import paperTexture from './assets/paper-texture.jpg';
+import navTexture from './assets/nav-texture.jpg';
+import corkBoard from './assets/cork-board.jpg';
 
 const suspectsData = [
   { id: 1, name: "Sara", title: "The Influencer", image: saraImg, motive: "The victim was about to expose her fake lifestyle and bought followers to the press.", clues: ["A faint scent of expensive French perfume.", "A loose silk thread from a designer scarf.", "A ring light was found near the body."] },
