@@ -127,7 +127,7 @@ function App() {
       let newXp = xp + 100;
       if (newXp >= XP_PER_LEVEL) { setLevel(prev => prev + 1); setXp(0); } else { setXp(newXp); }
     } else {
-      setClueMessage(`❌ FAILED! IT WAS ${killer.name.toUpperCase()}`);
+      setClueMessage(`❌ AILED! IT WAS ${killer.name.toUpperCase()}`);
     }
     setIsGameOver(true);
     setSelectedSuspect(null);
