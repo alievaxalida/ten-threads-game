@@ -51,14 +51,15 @@ export default function StartScreen({ onStartGame }) {
           <div className="name-area-wrapper">
             <div className="input-group">
             <input 
-                type="text" 
-                className={`name-input-v2 ${isConfirmed ? 'confirmed-text' : ''}`}
-                placeholder="USERNAME..." 
-                value={detectiveName}
-                onChange={(e) => !isConfirmed && setDetectiveName(e.target.value)}
-                disabled={isConfirmed}
-                maxLength={20}
-              />
+              type="text" 
+              className={`name-input-v2 ${isConfirmed ? 'confirmed-text' : ''}`}
+              placeholder="USERNAME..." 
+              value={detectiveName}
+              // BURA DƏYİŞDİ: həm onChange daxilində, həm də maxLength-də 12 simvol limiti qoyuruq
+              onChange={(e) => !isConfirmed && setDetectiveName(e.target.value.slice(0, 12))}
+              disabled={isConfirmed}
+              maxLength={12} // 20-ni 12 etdik
+            />
               
               {!isConfirmed && (
                 <button className="confirm-btn active" onClick={confirmAndStartGame}>✓</button>

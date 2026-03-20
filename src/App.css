@@ -505,3 +505,13 @@ body {
 translateY(-2px);
   }
 }
+
+/* Oyunçunun adının dizaynı pozmaması üçün */
+.player-name-display {
+  max-width: 100px; /* Ekranda nə qədər yer tutmasını istəyirsənsə, rəqəmi dəyişə bilərsən */
+  white-space: nowrap; 
+  overflow: hidden; 
+  text-overflow: ellipsis;
+  display: inline-block; 
+  vertical-align: bottom; /* Yanındakı ClueCoin yazısı ilə eyni hizada qalması üçün */
+}

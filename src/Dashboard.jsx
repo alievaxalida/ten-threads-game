@@ -5,14 +5,15 @@ import './Dashboard.css';
 export default function Dashboard({ detectiveName }) {
   const [activeTab, setActiveTab] = useState('case');
 
-  // Menyuların məzmunu (Hələlik sadə saxlayırıq)
+  // Menyuların məzmunu
   const renderContent = () => {
     switch (activeTab) {
       case 'case': return <div className="tab-content">🕵️‍♂️ {detectiveName}, yeni bir cinayət işi var!</div>;
       case 'shop': return <div className="tab-content">🛒 Detektiv mağazası tezliklə açılacaq.</div>;
       case 'game': return <div className="tab-content">🎮 Mini oyunlar burada olacaq.</div>;
       case 'rank': return <div className="tab-content">🏆 Ən yaxşı detektivlər siyahısı.</div>;
-      case 'wallet': return <div className="tab-content">💰 Balansınız: 0 AZN</div>;
+      // BURA DƏYİŞDİ: P2E konsepsiyasına uyğun olaraq AZN yerinə ClueCoin yazdıq
+      case 'wallet': return <div className="tab-content">💰 Balansınız: 0 ClueCoin</div>; 
       default: return null;
     }
   };
@@ -21,9 +22,15 @@ export default function Dashboard({ detectiveName }) {
     <div className="dashboard-wrapper">
       {/* ÜST HİSSƏ - Status Bar */}
       <div className="status-bar">
-        <span className="det-name">Det. {detectiveName}</span>
+        {/* BURA DƏYİŞDİ: Bayaq App.css-ə yazdığımız o "player-name-display" class-ını bura əlavə etdik ki, uzun adlar ... ilə kəsilsin */}
+        <span className="det-name player-name-display" title={detectiveName}>
+          Det. {detectiveName}
+        </span>
+        
         <div className="det-stats">
           <span>⭐ Lvl 1</span>
+          {/* İstəyə bağlı: Yuxarı paneldə də balansı göstərə bilərsən */}
+          <span style={{ marginLeft: '10px' }}>🪙 0 CC</span> 
         </div>
       </div>
 
@@ -32,7 +39,7 @@ export default function Dashboard({ detectiveName }) {
         {renderContent()}
       </div>
 
-      {/* ALT HİSSƏ - Navigation Bar */}
+      {/* ALT HİSSƏ - Navigation Bar (Dəyişilməyib, əladır!) */}
       <nav className="bottom-nav">
         <button className={activeTab === 'case' ? 'active' : ''} onClick={() => setActiveTab('case')}>
           <Briefcase size={24} />
