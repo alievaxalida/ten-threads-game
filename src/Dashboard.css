@@ -91,7 +91,7 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr); 
   gap: 15px;
-  padding-bottom: 80px; /* Alt menyunun kartların üstünə çıxmaması üçün boşluq */
+  padding-bottom: 80px; 
 }
 
 .suspect-card {
