@@ -1,4 +1,8 @@
-name: Deploy to GitHub Pages
+- name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: dist # 'build' olan yeri 'dist' et
+          branch: gh-pages
 
 on:
   push:
