@@ -1,7 +1,6 @@
 .dashboard-wrapper {
   width: 100vw;
   height: 100vh;
-  /* Arxa plan şəkli bura əlavə olundu */
   background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.7)), url('./assets/bg-wood.png');
   background-size: cover;
   background-position: center;
@@ -9,7 +8,7 @@
   flex-direction: column;
   color: white;
   font-family: 'Special Elite', cursive;
-  overflow: hidden; /* Bütün səhifənin sürüşməsini bağlayırıq */
+  overflow: hidden; 
 }
 
 .status-bar {
@@ -76,7 +75,7 @@
   to { opacity: 1; }
 }
 
-/* --- Case Board (Şübhəlilər Ekranı) Stilləri --- */
+/* -- Case Board (Şübhəlilər Ekranı) Stilləri -- */
 .case-board h2 {
   margin-bottom: 5px;
   color: #ffffff;
