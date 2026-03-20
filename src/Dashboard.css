@@ -27,10 +27,10 @@
 .main-display {
   flex: 1;
   display: flex;
-  flex-direction: column; /* İçindəkiləri alt-alta düzür */
+  flex-direction: column; 
   padding: 20px;
   text-align: center;
-  overflow-y: auto; /* Məzmun çox olanda yalnız bura sürüşəcək (scroll) */
+  overflow-y: auto; 
 }
 
 .tab-content {
