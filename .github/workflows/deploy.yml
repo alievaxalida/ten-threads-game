@@ -1,13 +1,9 @@
-- name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          folder: dist # 'build' olan yeri 'dist' et
-          branch: gh-pages
+name: Deploy to GitHub Pages
 
 on:
   push:
     branches:
-      - main  # Əgər sənin ana budağın master-dirsə, bura master yaz
+      - main
 
 permissions:
   contents: write
@@ -27,5 +23,5 @@ jobs:
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: build # React-in yaratdığı build qovluğu
-          branch: gh-pages # Saytın işləyəcəyi budaq
+          folder: dist
+          branch: gh-pages
