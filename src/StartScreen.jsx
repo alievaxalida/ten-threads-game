@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react'; // BURA DƏYİŞDİ: useEffect əlavə olundu
 import './StartScreen.css';
 import evidenceBg from './assets/evidence-bg.jpg';
 import mySealImg from './assets/my-seal.png';
@@ -6,6 +6,26 @@ import mySealImg from './assets/my-seal.png';
 export default function StartScreen({ onStartGame }) {
   const [detectiveName, setDetectiveName] = useState('');
   const [isConfirmed, setIsConfirmed] = useState(false);
+
+  // YENİ ƏLAVƏ OLUNAN HİSSƏ: Telegram məlumatlarını çəkmək üçün
+  useEffect(() => {
+    // Əmin oluruq ki, Telegram obyekti mövcuddur
+    if (window.Telegram && window.Telegram.WebApp) {
+      const tg = window.Telegram.WebApp;
+      
+      // Tətbiqi tam ekrana genişləndiririk (oyun üçün daha yaxşıdır)
+      tg.expand();
+
+      // İstifadəçi məlumatlarını alırıq
+      const user = tg.initDataUnsafe?.user;
+      
+      if (user) {
+        // Əvvəlcə username-i yoxlayır, yoxdursa adını götürür, heç biri yoxdursa "Detektiv" yazır
+        const nameToSet = user.username || user.first_name || "Detektiv";
+        setDetectiveName(nameToSet);
+      }
+    }
+  }, []); // Boş massiv [] o deməkdir ki, bu kod ancaq səhifə ilk dəfə açılanda işləyəcək
 
   const confirmAndStartGame = () => {
     if (detectiveName.trim().length > 2) {
@@ -33,7 +53,7 @@ export default function StartScreen({ onStartGame }) {
             <input 
                 type="text" 
                 className={`name-input-v2 ${isConfirmed ? 'confirmed-text' : ''}`}
-                placeholder="USERNAME..." // <-- BURA DƏYİŞDİ ("DETECTIVE NAME..." yerinə)
+                placeholder="USERNAME..." 
                 value={detectiveName}
                 onChange={(e) => !isConfirmed && setDetectiveName(e.target.value)}
                 disabled={isConfirmed}
