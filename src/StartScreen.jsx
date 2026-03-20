@@ -9,23 +9,23 @@ export default function StartScreen({ onStartGame }) {
 
   // YENİ ƏLAVƏ OLUNAN HİSSƏ: Telegram məlumatlarını çəkmək üçün
   useEffect(() => {
-    // Əmin oluruq ki, Telegram obyekti mövcuddur
     if (window.Telegram && window.Telegram.WebApp) {
       const tg = window.Telegram.WebApp;
-      
-      // Tətbiqi tam ekrana genişləndiririk (oyun üçün daha yaxşıdır)
       tg.expand();
 
-      // İstifadəçi məlumatlarını alırıq
       const user = tg.initDataUnsafe?.user;
       
       if (user) {
-        // Əvvəlcə username-i yoxlayır, yoxdursa adını götürür, heç biri yoxdursa "Detektiv" yazır
-        const nameToSet = user.username || user.first_name || "Detektiv";
-        setDetectiveName(nameToSet);
+        // Telegram-dan gələn xam ad
+        const rawName = user.username || user.first_name || "Detektiv";
+        
+        // BURA DƏYİŞDİ: Adı sistemə yazmamışdan ƏVVƏL 6 hərfə kəsib böyüdürük
+        const formattedName = rawName.slice(0, 6).toUpperCase(); 
+        
+        setDetectiveName(formattedName);
       }
     }
-  }, []); // Boş massiv [] o deməkdir ki, bu kod ancaq səhifə ilk dəfə açılanda işləyəcək
+  }, []);
 
   const confirmAndStartGame = () => {
     if (detectiveName.trim().length > 2) {
@@ -56,9 +56,9 @@ export default function StartScreen({ onStartGame }) {
               placeholder="USERNAME..." 
               value={detectiveName}
               // BURA DƏYİŞDİ: həm onChange daxilində, həm də maxLength-də 12 simvol limiti qoyuruq
-              onChange={(e) => !isConfirmed && setDetectiveName(e.target.value.slice(0, 12))}
+              onChange={(e) => !isConfirmed && setDetectiveName(e.target.value.slice(0, 6))}
               disabled={isConfirmed}
-              maxLength={12} // 20-ni 12 etdik
+              maxLength={6} // 
             />
               
               {!isConfirmed && (
