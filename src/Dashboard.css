@@ -75,3 +75,58 @@
   from { opacity: 0; }
   to { opacity: 1; }
 }
+
+/* --- Case Board (Şübhəlilər Ekranı) Stilləri --- */
+.case-board h2 {
+  margin-bottom: 5px;
+  color: #ffffff;
+}
+
+.case-board p {
+  color: #888;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.suspects-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Ekranda yan-yana 2 kart göstərir */
+  gap: 15px;
+  padding-bottom: 80px; /* Alt menyunun kartların üstünə çıxmaması üçün boşluq */
+}
+
+.suspect-card {
+  background: #1e1e24; /* Tünd interfeysə uyğun rəng */
+  border: 1px solid #333;
+  border-radius: 12px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.suspect-card:hover {
+  border-color: #f1c40f; /* Klikləyəndə qızılı detektiv rəngi yanır */
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(241, 196, 15, 0.15);
+}
+
+.suspect-emoji {
+  font-size: 36px;
+  margin-bottom: 8px;
+}
+
+.suspect-name {
+  font-weight: bold;
+  color: #fff;
+  font-size: 16px;
+  display: block;
+}
+
+.suspect-role {
+  font-size: 12px;
+  color: #888;
+}
