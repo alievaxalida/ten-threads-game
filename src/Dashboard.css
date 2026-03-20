@@ -45,7 +45,7 @@
   background: #111;
   padding: 10px 0;
   border-top: 2px solid #8b0000;
-  padding-bottom: 25px; /* Telefonların alt boşluğu üçün */
+  padding-bottom: 25px; 
 }
 
 .bottom-nav button {
