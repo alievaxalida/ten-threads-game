@@ -129,3 +129,76 @@
   font-size: 12px;
   color: #888;
 }
+
+/* =========================================
+   GECƏ / GÜNDÜZ (İŞIQ/QARANLIQ) REJİMLƏRİ
+========================================== */
+
+/* 1. Gündüz Rejimi (İşıqlı Lövhə) */
+.case-board.light-mode {
+  background-image: url('./assets/light-on.jpg'); /* Əgər şəkillər assets qovluğunda deyilsə, sadəcə url('./light-on.png') yaz */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 10px;
+  padding: 20px;
+  /* main-display-in padding-ni sıfırlamaq üçün mənfi margin veririk ki, lövhə tam ekrana otursun */
+  margin: -20px; 
+  min-height: 100%;
+}
+
+/* 2. Gecə Rejimi (Qaranlıq Lövhə) */
+.case-board.dark-mode {
+  background-image: url('./assets/light-off.jpg'); 
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 10px;
+  padding: 20px;
+  margin: -20px;
+  min-height: 100%;
+}
+
+/* =========================================
+   QARANLIQ REJİMİN EFFEKTLƏRİ (ÇOX VACİB)
+========================================== */
+
+/* Qaranlıq rejimdə kartlar çətin görünsün, solğunlaşsın və üzərinə kölgə düşsün */
+.case-board.dark-mode .suspect-card {
+  background: rgba(10, 10, 10, 0.85); /* Çox qaranlıq arxa fon */
+  border-color: #111;
+  opacity: 0.5; /* Kartları solğunlaşdırır */
+  filter: grayscale(80%) brightness(60%); /* Rəngləri alır və qaraldır */
+}
+
+/* Gecə vaxtı kartın üzərinə gələndə fənər effekti (qırmızımtıl/sarımtıl kölgə) */
+.case-board.dark-mode .suspect-card:hover {
+  border-color: #8b0000;
+  opacity: 0.9;
+  filter: grayscale(20%) brightness(90%);
+  box-shadow: 0 0 15px rgba(139, 0, 0, 0.4);
+}
+
+
+/* =========================================
+   GECƏ XƏBƏRDARLIĞI PƏNCƏRƏSİ (Warning)
+========================================== */
+.night-warning {
+  background: rgba(20, 0, 0, 0.85);
+  color: #ff4444;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
+  border: 1px solid #8b0000;
+  box-shadow: 0 0 10px rgba(139, 0, 0, 0.5);
+  animation: pulse-danger 2s infinite; /* Yanıb-sönmə effekti */
+}
+
+@keyframes pulse-danger {
+  0% { box-shadow: 0 0 5px rgba(139, 0, 0, 0.2); }
+  50% { box-shadow: 0 0 20px rgba(139, 0, 0, 0.6); }
+  100% { box-shadow: 0 0 5px rgba(139, 0, 0, 0.2); }
+}
